@@ -1,4 +1,13 @@
-ALLEGRO_DISPLAY *janela = NULL;
+#include <stdio.h>
+#include <allegro5/allegro.h>
+#include <allegro5/allegro_image.h>
+
+const int LARGURA_TELA = 900;
+const int ALTURA_TELA = 700;
+
+int telainicio()
+{
+    ALLEGRO_DISPLAY *janela = NULL;
     ALLEGRO_BITMAP *imagem = NULL;
     ALLEGRO_EVENT_QUEUE *fila_eventos = NULL;
  
@@ -21,7 +30,7 @@ ALLEGRO_DISPLAY *janela = NULL;
         return -1;
     }
  
-    imagem = al_load_bitmap("background.jpeg");
+    imagem = al_load_bitmap("background.png");
     if (!imagem)
     {
         fprintf(stderr, "Falha ao carregar o arquivo de imagem.\n");
@@ -62,3 +71,10 @@ ALLEGRO_DISPLAY *janela = NULL;
  
     al_destroy_display(janela);
     al_destroy_event_queue(fila_eventos);
+}
+
+int main()
+{
+    telainicio();
+    return 0;
+}
