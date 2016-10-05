@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
 	{
 		ALLEGRO_EVENT evento;
 		ALLEGRO_TIMEOUT timeout;
-		al_init_timeout(&timeout, 50.0);
+		al_init_timeout(&timeout, 0.05);
 
 		int os_eventos = al_wait_for_event_until(fila_eventos,&evento,&timeout);
 		
