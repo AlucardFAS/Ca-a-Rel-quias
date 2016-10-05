@@ -1,6 +1,8 @@
 #include <stdio.h>
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
+#include <allegro5/allegro_font.h>
+#include <allegro5/allegro_ttf.h>
 
 const int LARGURA_TELA = 900;
 const int ALTURA_TELA = 700;
@@ -10,26 +12,35 @@ int telainicio()
     ALLEGRO_DISPLAY *janela = NULL;
     ALLEGRO_BITMAP *imagem = NULL;
     ALLEGRO_EVENT_QUEUE *fila_eventos = NULL;
- 
+    ALLEGRO_FONT *fonte = NULL;
+
     if (!al_init())
     {
         fprintf(stderr, "Falha ao inicializar a Allegro.\n");
         return -1;
     }
  
-    if (!al_init_image_addon())
-    {
-        fprintf(stderr, "Falha ao inicializar add-on allegro_image.\n");
-        return -1;
-    }
  
     janela = al_create_display(LARGURA_TELA, ALTURA_TELA);
     if (!janela)
     {
-        fprintf(stderr, "Falha ao criar janela.\n");
+        fprintf(stderr, "Falha ao inicializar a janela.\n");
         return -1;
     }
- 
+
+    al_init_font_addon();
+    al_init_ttf_addon();
+    al_init_image_addon();
+
+/*    fonte=al_load_font("bradhitc.ttf",30,0); 
+    if(!fonte)
+    {
+        fprintf(stderr,"Falha ao carregar fonte.\n");
+        al_destroy_display(janela);
+        return -1;
+    }*/
+
+
     imagem = al_load_bitmap("background.png");
     if (!imagem)
     {
@@ -45,6 +56,9 @@ int telainicio()
         al_destroy_display(janela);
         return -1;
     }
+
+ //   al_draw_text(fonte, al_map_rgb(255, 255, 255), LARGURA_TELA / 2, 90, ALLEGRO_ALIGN_CENTRE, "Iniciar");
+
  
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
  
@@ -76,5 +90,4 @@ int telainicio()
 int main()
 {
     telainicio();
-    return 0;
 }
