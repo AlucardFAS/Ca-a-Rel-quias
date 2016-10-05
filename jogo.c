@@ -8,8 +8,6 @@
 
 const int LARGURA_DE_TELA = 900;
 const int ALTURA_DE_TELA = 700;
- 
-int janela();
 
 int main(int argc, char *argv[])
 {
@@ -37,7 +35,7 @@ int main(int argc, char *argv[])
 		return -1;
 	}
 	
-	imagem = al_load_bitmap("background.jpg");//carregando imagem no programa
+	imagem = al_load_bitmap("background.jpeg");//carregando imagem no programa
 	if (!imagem)//CASO A IMAGEM NÃO SEJA CARREGADA
 	{
 		fprintf(stderr, "Falha ao carregar o arquivo de imagem.\n");
@@ -49,21 +47,11 @@ int main(int argc, char *argv[])
 	al_draw_bitmap(imagem,0,0,0);//carregando imagem para tela
  	al_flip_display();
 	
-	janela();//chama a janela com a fila de eventos
-
-	al_destroy_display(janela);
- 
-	return 0;
-}
-
-
-int janela()
-{
 	while (1)
 	{
 		ALLEGRO_EVENT evento;
 		ALLEGRO_TIMEOUT timeout;
-		al_init_timeout(&timeout, 0.05);
+		al_init_timeout(&timeout, 50.0);
 
 		int os_eventos = al_wait_for_event_until(fila_eventos,&evento,&timeout);
 		
@@ -73,8 +61,13 @@ int janela()
 		}
 		al_draw_bitmap(imagem,0,0,0);
 		al_flip_display();
-	}
+	}//chama a janela com a fila de eventos
 	al_destroy_event_queue(fila_eventos);
-	return 1;
+	al_destroy_display(janela);
+ 
+	return 0;
 }
+
+
+
 
