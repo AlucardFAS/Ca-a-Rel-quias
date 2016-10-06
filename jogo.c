@@ -13,11 +13,12 @@ ALLEGRO_BITMAP *cima1 = NULL;
 ALLEGRO_BITMAP *baixo1 = NULL;
 ALLEGRO_BITMAP *esquerda1 = NULL;
 ALLEGRO_BITMAP *direita1 = NULL;
+
 bool iniciar();
- 
-int main(void)
+
+int jogo()
 {
-    bool sair = false;
+	bool sair = false;
     int tecla = 0;
  
     if (!iniciar())
@@ -26,7 +27,7 @@ int main(void)
     }
  
     al_draw_bitmap(fundo, 0, 0, 0);
-    int x=0,y=0;
+    int x=450,y=350;
     while (!sair)
     {
         while(!al_is_event_queue_empty(fila_eventos))
@@ -65,28 +66,53 @@ int main(void)
             switch (tecla)
             {
             case 1:
-                al_draw_bitmap(cima1, x, y--,0);
+            	if(y==0)
+            	{
+            		al_draw_bitmap(cima1, x, y,0);
+            	}
+            	else
+            	{
+                	al_draw_bitmap(cima1, x, y--,0);
+                }
+
                 al_flip_display();
+                sleep(0.1);
                 break;
             case 2:
-                al_draw_bitmap(baixo1, x, y++, 0);
+            	if(y==700)
+            	{
+            		al_draw_bitmap(baixo1, x, y, 0);
+            	}
+            	else
+            	{
+                	al_draw_bitmap(baixo1, x, y++, 0);
+                }
                 al_flip_display();
+                sleep(0.1);
                 break;
             case 3:
-                al_draw_bitmap(esquerda1, x--, y, 0);
+            	if(x==0)
+            	{
+            		al_draw_bitmap(esquerda1, x, y, 0);
+            	}
+            	else
+            	{
+                	al_draw_bitmap(esquerda1, x--, y, 0);
+                }
                 al_flip_display();
+                sleep(0.1);
                 break;
             case 4:
                 al_draw_bitmap(direita1, x++, y, 0);
                 al_flip_display();
+                sleep(0.1);
                 break;
-
             }
  
             tecla = 0;
         }
- 
-        al_flip_display();
+ 	al_flip_display();
+
     }
  
     al_destroy_display(janela);
@@ -94,6 +120,13 @@ int main(void)
  
     return 0;
 }
+
+ 
+int main(void)
+{
+	jogo();
+}
+    
  
 bool iniciar()
 {
@@ -133,7 +166,7 @@ bool iniciar()
         return false;
     }
  
-    fundo = al_load_bitmap("background.png");
+    fundo = al_load_bitmap("fundojogo.png");
     if (!fundo)
     {
         fprintf(stderr, "Falha ao carregar imagem de fundo.\n");
@@ -144,7 +177,7 @@ bool iniciar()
     esquerda1 = al_load_bitmap("esquerda1.png");
     if (!esquerda1)
     {
-        fprintf(stderr, "Falha ao carregar imagem de fundo.\n");
+        fprintf(stderr, "Falha ao carregar personagem.\n");
         al_destroy_display(janela);
         al_destroy_event_queue(fila_eventos);
         return false;
@@ -152,7 +185,7 @@ bool iniciar()
     direita1 = al_load_bitmap("direita1.png");
     if (!direita1)
     {
-        fprintf(stderr, "Falha ao carregar imagem de fundo.\n");
+        fprintf(stderr, "Falha ao carregar personagem.\n");
         al_destroy_display(janela);
         al_destroy_event_queue(fila_eventos);
         return false;
@@ -160,7 +193,7 @@ bool iniciar()
     cima1 = al_load_bitmap("cima1.png");
     if (!cima1)
     {
-        fprintf(stderr, "Falha ao carregar imagem de fundo.\n");
+        fprintf(stderr, "Falha ao carregar personagem.\n");
         al_destroy_display(janela);
         al_destroy_event_queue(fila_eventos);
         return false;
@@ -168,7 +201,7 @@ bool iniciar()
     baixo1 = al_load_bitmap("baixo1.png");
     if (!baixo1)
     {
-        fprintf(stderr, "Falha ao carregar imagem de fundo.\n");
+        fprintf(stderr, "Falha ao carregar personagem.\n");
         al_destroy_display(janela);
         al_destroy_event_queue(fila_eventos);
         return false;
