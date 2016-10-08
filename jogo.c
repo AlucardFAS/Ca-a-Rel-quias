@@ -66,7 +66,15 @@ int jogo()
             switch (tecla)
             {
             case 1:
-            	if(y<=200)
+                if(y<=245 && x<=300)
+                {
+                    al_draw_bitmap(cima1, x, y,0);
+                }
+                else if(y<=245 && x>=560)
+                {
+                    al_draw_bitmap(cima1, x, y, 0);
+                }
+            	else if(y<=200)
             	{
             		al_draw_bitmap(cima1, x, y,0);
             	}
@@ -76,7 +84,7 @@ int jogo()
                 }
 
                 al_flip_display();
-                sleep(0.1);
+                sleep(0.1);//funciona
                 break;
             case 2:
             	if(y>=520)
@@ -107,13 +115,17 @@ int jogo()
                 sleep(0.1);
                 break;
             case 4:
-            	if(x>=860)
+                if(x>=560 && y<=230)
+                {
+                    al_draw_bitmap(direita1, x, y, 0);
+                }
+            	else if(x>=860)
             	{
-                al_draw_bitmap(direita1, x, y, 0);
+                    al_draw_bitmap(direita1, x, y, 0);
                 }
                 else
                 {
-                al_draw_bitmap(direita1, x+=3, y, 0);
+                    al_draw_bitmap(direita1, x+=3, y, 0);
                 }
                 al_flip_display();
                 sleep(0.1);
