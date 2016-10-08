@@ -103,7 +103,14 @@ int jogo()
                 sleep(0.1);
                 break;
             case 4:
+            	if(x==900)
+            	{
+                al_draw_bitmap(direita1, x, y, 0);
+                }
+                else
+                {
                 al_draw_bitmap(direita1, x++, y, 0);
+                }
                 al_flip_display();
                 sleep(0.1);
                 break;
