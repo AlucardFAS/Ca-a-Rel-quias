@@ -1,8 +1,11 @@
 #include <allegro5/allegro.h>
 #include <allegro5/allegro_image.h>
+#include <allegro5/allegro_audio.h>
+#include <allegro5/allegro_acodec.h>
 #include <stdio.h>
 #include <stdbool.h>
  
+
 const int LARGURA_T = 900;
 const int ALTURA_T = 700;
  
@@ -13,6 +16,8 @@ ALLEGRO_BITMAP *cima1 = NULL;
 ALLEGRO_BITMAP *baixo1 = NULL;
 ALLEGRO_BITMAP *esquerda1 = NULL;
 ALLEGRO_BITMAP *direita1 = NULL;
+ALLEGRO_SAMPLE *trilha = NULL;
+ALLEGRO_SAMPLE_INSTANCE *inst_trilha = NULL;
 
 bool iniciar();
 
@@ -30,6 +35,9 @@ int jogo()
     int x=450,y=350;
     while (!sair)
     {
+
+        al_play_sample_instance(inst_trilha);
+
         while(!al_is_event_queue_empty(fila_eventos))
         {
             ALLEGRO_EVENT evento;
@@ -143,6 +151,7 @@ int jogo()
     al_destroy_bitmap(esquerda1);
     al_destroy_bitmap(direita1);
     al_destroy_bitmap(baixo1); 
+    al_destroy_sample_instance(inst_trilha);
     al_destroy_display(janela);
     al_destroy_event_queue(fila_eventos);
  
@@ -234,6 +243,53 @@ bool iniciar()
         al_destroy_event_queue(fila_eventos);
         return false;
     }
+
+    if (!al_install_audio())
+    {
+        fprintf(stderr, "Falha ao inicializar áudio.\n");
+        al_destroy_display(janela);
+        al_destroy_event_queue(fila_eventos);
+        return false;
+    }
+
+    if (!al_init_acodec_addon())
+    {
+        fprintf(stderr, "Falha ao inicializar codecd de audio.\n");
+        al_destroy_display(janela);
+        al_destroy_event_queue(fila_eventos);
+        return false;
+    }
+
+    if (!al_reserve_samples(5))
+    {
+        fprintf(stderr, "falha ao inicializar a reserva de samples.\n");
+        al_destroy_display(janela);
+        al_destroy_event_queue(fila_eventos);
+        return false;
+    }
+
+    trilha = al_load_sample("mus.ogg");
+    if (!trilha)
+    {
+        fprintf(stderr, "falha ao inicializar a trilha.\n");
+        al_destroy_display(janela);
+        al_destroy_event_queue(fila_eventos);
+        return false;
+    }
+
+    inst_trilha = al_create_sample_instance(trilha);
+    if (!inst_trilha)
+    {
+        fprintf(stderr, "falha ao inicializar a trilha.\n");
+        al_destroy_display(janela);
+        al_destroy_event_queue(fila_eventos);
+        al_destroy_sample(trilha);
+    }
+
+    al_attach_sample_instance_to_mixer(inst_trilha, al_get_default_mixer());
+    al_set_sample_instance_playmode(inst_trilha, ALLEGRO_PLAYMODE_LOOP);
+    al_set_sample_instance_gain(inst_trilha, 0.3);
+
  
     al_register_event_source(fila_eventos, al_get_keyboard_event_source());
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
