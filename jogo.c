@@ -66,62 +66,71 @@ int jogo()
             switch (tecla)
             {
             case 1:
-            	if(y==0)
+            	if(y<=200)
             	{
             		al_draw_bitmap(cima1, x, y,0);
             	}
             	else
             	{
-                	al_draw_bitmap(cima1, x, y--,0);
+                	al_draw_bitmap(cima1, x, y-=3,0);
                 }
 
                 al_flip_display();
                 sleep(0.1);
                 break;
             case 2:
-            	if(y==700)
+            	if(y>=520)
             	{
             		al_draw_bitmap(baixo1, x, y, 0);
             	}
             	else
             	{
-                	al_draw_bitmap(baixo1, x, y++, 0);
+                	al_draw_bitmap(baixo1, x, y+=3, 0);
                 }
                 al_flip_display();
                 sleep(0.1);
                 break;
             case 3:
-            	if(x==0)
+                if(x<=310 && y<=230)
+                {
+                    al_draw_bitmap(esquerda1, x, y, 0);
+                }
+            	else if(x<=0)
             	{
             		al_draw_bitmap(esquerda1, x, y, 0);
             	}
             	else
             	{
-                	al_draw_bitmap(esquerda1, x--, y, 0);
+                	al_draw_bitmap(esquerda1, x-=3, y, 0);
                 }
                 al_flip_display();
                 sleep(0.1);
                 break;
             case 4:
-            	if(x==900)
+            	if(x>=860)
             	{
                 al_draw_bitmap(direita1, x, y, 0);
                 }
                 else
                 {
-                al_draw_bitmap(direita1, x++, y, 0);
+                al_draw_bitmap(direita1, x+=3, y, 0);
                 }
                 al_flip_display();
                 sleep(0.1);
                 break;
             }
- 
+            
             tecla = 0;
         }
  	al_flip_display();
 
     }
- 
+
+    al_destroy_bitmap(fundo);
+    al_destroy_bitmap(cima1);
+    al_destroy_bitmap(esquerda1);
+    al_destroy_bitmap(direita1);
+    al_destroy_bitmap(baixo1); 
     al_destroy_display(janela);
     al_destroy_event_queue(fila_eventos);
  
