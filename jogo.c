@@ -5,7 +5,7 @@
 #include <stdio.h>
 #include <stdbool.h>
  
-
+//-----variaveis e ponteiros.
 const int LARGURA_T = 900;
 const int ALTURA_T = 700;
  
@@ -33,10 +33,10 @@ int jogo()
  
     al_draw_bitmap(fundo, 0, 0, 0);
     int x=450,y=350;
-    while (!sair)
+    while (!sair)//logica dentro do jogo
     {
 
-        al_play_sample_instance(inst_trilha);
+        al_play_sample_instance(inst_trilha);//toca musica até o jogo ser fechado
 
         while(!al_is_event_queue_empty(fila_eventos))
         {
@@ -67,7 +67,7 @@ int jogo()
             }
         }
  
-        if (tecla)
+        if (tecla)//movimentação do personagem.
         {
             al_draw_bitmap(fundo, 0, 0, 0);
  
@@ -146,6 +146,7 @@ int jogo()
 
     }
 
+//-----destruindo ponteiros para as variaveis--------
     al_destroy_bitmap(fundo);
     al_destroy_bitmap(cima1);
     al_destroy_bitmap(esquerda1);
@@ -154,6 +155,8 @@ int jogo()
     al_destroy_sample_instance(inst_trilha);
     al_destroy_display(janela);
     al_destroy_event_queue(fila_eventos);
+    al_destroy_sample(trilha);
+
  
     return 0;
 }
@@ -164,7 +167,7 @@ int main(void)
 	jogo();
 }
     
- 
+//------metodo para inicialização------
 bool iniciar()
 {
     if (!al_init())
@@ -217,6 +220,7 @@ bool iniciar()
         fprintf(stderr, "Falha ao carregar personagem.\n");
         al_destroy_display(janela);
         al_destroy_event_queue(fila_eventos);
+        al_destroy_bitmap(fundo);
         return false;
     }
     direita1 = al_load_bitmap("direita1.png");
@@ -225,6 +229,8 @@ bool iniciar()
         fprintf(stderr, "Falha ao carregar personagem.\n");
         al_destroy_display(janela);
         al_destroy_event_queue(fila_eventos);
+        al_destroy_bitmap(fundo);
+        al_destroy_bitmap(esquerda1);
         return false;
     }
     cima1 = al_load_bitmap("cima1.png");
@@ -233,6 +239,9 @@ bool iniciar()
         fprintf(stderr, "Falha ao carregar personagem.\n");
         al_destroy_display(janela);
         al_destroy_event_queue(fila_eventos);
+        al_destroy_bitmap(fundo);
+        al_destroy_bitmap(esquerda1);
+        al_destroy_bitmap(direita1);
         return false;
     }
     baixo1 = al_load_bitmap("baixo1.png");
@@ -241,6 +250,10 @@ bool iniciar()
         fprintf(stderr, "Falha ao carregar personagem.\n");
         al_destroy_display(janela);
         al_destroy_event_queue(fila_eventos);
+        al_destroy_bitmap(fundo);
+        al_destroy_bitmap(esquerda1);
+        al_destroy_bitmap(direita1);
+        al_destroy_bitmap(cima1);
         return false;
     }
 
@@ -249,6 +262,11 @@ bool iniciar()
         fprintf(stderr, "Falha ao inicializar áudio.\n");
         al_destroy_display(janela);
         al_destroy_event_queue(fila_eventos);
+        al_destroy_bitmap(fundo);
+        al_destroy_bitmap(esquerda1);
+        al_destroy_bitmap(direita1);
+        al_destroy_bitmap(cima1);
+        al_destroy_bitmap(baixo1);
         return false;
     }
 
@@ -257,6 +275,11 @@ bool iniciar()
         fprintf(stderr, "Falha ao inicializar codecd de audio.\n");
         al_destroy_display(janela);
         al_destroy_event_queue(fila_eventos);
+        al_destroy_bitmap(fundo);
+        al_destroy_bitmap(esquerda1);
+        al_destroy_bitmap(direita1);
+        al_destroy_bitmap(cima1);
+        al_destroy_bitmap(baixo1);
         return false;
     }
 
@@ -265,6 +288,11 @@ bool iniciar()
         fprintf(stderr, "falha ao inicializar a reserva de samples.\n");
         al_destroy_display(janela);
         al_destroy_event_queue(fila_eventos);
+        al_destroy_bitmap(fundo);
+        al_destroy_bitmap(esquerda1);
+        al_destroy_bitmap(direita1);
+        al_destroy_bitmap(cima1);
+        al_destroy_bitmap(baixo1);
         return false;
     }
 
@@ -274,6 +302,11 @@ bool iniciar()
         fprintf(stderr, "falha ao inicializar a trilha.\n");
         al_destroy_display(janela);
         al_destroy_event_queue(fila_eventos);
+        al_destroy_bitmap(fundo);
+        al_destroy_bitmap(esquerda1);
+        al_destroy_bitmap(direita1);
+        al_destroy_bitmap(cima1);
+        al_destroy_bitmap(baixo1);
         return false;
     }
 
@@ -284,11 +317,19 @@ bool iniciar()
         al_destroy_display(janela);
         al_destroy_event_queue(fila_eventos);
         al_destroy_sample(trilha);
+        al_destroy_bitmap(fundo);
+        al_destroy_bitmap(esquerda1);
+        al_destroy_bitmap(direita1);
+        al_destroy_bitmap(cima1);
+        al_destroy_bitmap(baixo1);
+        return false;
     }
 
-    al_attach_sample_instance_to_mixer(inst_trilha, al_get_default_mixer());
-    al_set_sample_instance_playmode(inst_trilha, ALLEGRO_PLAYMODE_LOOP);
-    al_set_sample_instance_gain(inst_trilha, 0.3);
+    //-----funções para o inicio do jogo------
+
+    al_attach_sample_instance_to_mixer(inst_trilha, al_get_default_mixer());//alocando o musica em um mixer padrão(Ubuntu)
+    al_set_sample_instance_playmode(inst_trilha, ALLEGRO_PLAYMODE_LOOP);//loop para a musica.
+    al_set_sample_instance_gain(inst_trilha, 0.3);//volume da musica de fundo.
 
  
     al_register_event_source(fila_eventos, al_get_keyboard_event_source());
