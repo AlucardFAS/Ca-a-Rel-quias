@@ -8,22 +8,35 @@
 //-----variaveis e ponteiros.
 const int LARGURA_T = 900;
 const int ALTURA_T = 700;
+const int FRAMES = 60;
  
 ALLEGRO_DISPLAY *janela = NULL;
 ALLEGRO_EVENT_QUEUE *fila_eventos = NULL;
 ALLEGRO_BITMAP *fundo = NULL;
 ALLEGRO_BITMAP *cima1 = NULL;
+ALLEGRO_BITMAP *cima2 = NULL;
 ALLEGRO_BITMAP *baixo1 = NULL;
+ALLEGRO_BITMAP *baixo2 = NULL;
 ALLEGRO_BITMAP *esquerda1 = NULL;
+ALLEGRO_BITMAP *esquerda2 = NULL;
 ALLEGRO_BITMAP *direita1 = NULL;
+ALLEGRO_BITMAP *direita2 = NULL;
 ALLEGRO_SAMPLE *trilha = NULL;
 ALLEGRO_SAMPLE_INSTANCE *inst_trilha = NULL;
 
+double tempoInicial = 0;
+
 bool iniciar();
+
+double tempoFinal()
+{
+    return al_get_time() - tempoInicial;
+}
 
 int jogo()
 {
 	bool sair = false;
+    int frame=0;
     int tecla = 0;
  
     if (!iniciar())
@@ -35,6 +48,7 @@ int jogo()
     int x=450,y=350;
     while (!sair)//logica dentro do jogo
     {
+        tempoInicial = al_get_time(); //Frames do jogo
 
         al_play_sample_instance(inst_trilha);//toca musica até o jogo ser fechado
 
@@ -143,8 +157,15 @@ int jogo()
             tecla = 0;
         }
  	al_flip_display();
+    frame++;
+
+    if ((tempoFinal() < 1.0 / FRAMES))
+    {
+        al_rest((1.0 / FRAMES) - tempoFinal());
+    }
 
     }
+
 
 //-----destruindo ponteiros para as variaveis--------
     al_destroy_bitmap(fundo);
@@ -152,6 +173,10 @@ int jogo()
     al_destroy_bitmap(esquerda1);
     al_destroy_bitmap(direita1);
     al_destroy_bitmap(baixo1); 
+    al_destroy_bitmap(cima2);
+    al_destroy_bitmap(esquerda2);
+    al_destroy_bitmap(direita2);
+    al_destroy_bitmap(baixo2); 
     al_destroy_sample_instance(inst_trilha);
     al_destroy_display(janela);
     al_destroy_event_queue(fila_eventos);
@@ -164,7 +189,9 @@ int jogo()
  
 int main(void)
 {
+
 	jogo();
+
 }
     
 //------metodo para inicialização------
@@ -223,6 +250,15 @@ bool iniciar()
         al_destroy_bitmap(fundo);
         return false;
     }
+    esquerda2 = al_load_bitmap("esquerda2.png");
+    if (!esquerda2)
+    {
+        fprintf(stderr, "Falha ao carregar personagem.\n");
+        al_destroy_display(janela);
+        al_destroy_event_queue(fila_eventos);
+        al_destroy_bitmap(fundo);
+        return false;
+    }
     direita1 = al_load_bitmap("direita1.png");
     if (!direita1)
     {
@@ -233,8 +269,29 @@ bool iniciar()
         al_destroy_bitmap(esquerda1);
         return false;
     }
+    direita2 = al_load_bitmap("direita2.png");
+    if (!direita2)
+    {
+        fprintf(stderr, "Falha ao carregar personagem.\n");
+        al_destroy_display(janela);
+        al_destroy_event_queue(fila_eventos);
+        al_destroy_bitmap(fundo);
+        al_destroy_bitmap(esquerda1);
+        return false;
+    }
     cima1 = al_load_bitmap("cima1.png");
     if (!cima1)
+    {
+        fprintf(stderr, "Falha ao carregar personagem.\n");
+        al_destroy_display(janela);
+        al_destroy_event_queue(fila_eventos);
+        al_destroy_bitmap(fundo);
+        al_destroy_bitmap(esquerda1);
+        al_destroy_bitmap(direita1);
+        return false;
+    }
+    cima2 = al_load_bitmap("cima2.png");
+    if (!cima2)
     {
         fprintf(stderr, "Falha ao carregar personagem.\n");
         al_destroy_display(janela);
@@ -256,7 +313,18 @@ bool iniciar()
         al_destroy_bitmap(cima1);
         return false;
     }
-
+    baixo2 = al_load_bitmap("baixo2.png");
+    if (!baixo2)
+    {
+        fprintf(stderr, "Falha ao carregar personagem.\n");
+        al_destroy_display(janela);
+        al_destroy_event_queue(fila_eventos);
+        al_destroy_bitmap(fundo);
+        al_destroy_bitmap(esquerda1);
+        al_destroy_bitmap(direita1);
+        al_destroy_bitmap(cima1);
+        return false;
+    }
     if (!al_install_audio())
     {
         fprintf(stderr, "Falha ao inicializar áudio.\n");
@@ -272,7 +340,7 @@ bool iniciar()
 
     if (!al_init_acodec_addon())
     {
-        fprintf(stderr, "Falha ao inicializar codecd de audio.\n");
+        fprintf(stderr, "Falha ao inicializar codec de audio.\n");
         al_destroy_display(janela);
         al_destroy_event_queue(fila_eventos);
         al_destroy_bitmap(fundo);
@@ -313,7 +381,7 @@ bool iniciar()
     inst_trilha = al_create_sample_instance(trilha);
     if (!inst_trilha)
     {
-        fprintf(stderr, "falha ao inicializar a trilha.\n");
+        fprintf(stderr, "falha ao inicializar a trilha sonora.\n");
         al_destroy_display(janela);
         al_destroy_event_queue(fila_eventos);
         al_destroy_sample(trilha);
