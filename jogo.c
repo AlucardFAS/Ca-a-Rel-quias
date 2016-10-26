@@ -5,10 +5,8 @@
 #include <stdio.h>
 #include <stdbool.h>
  
-//-----variaveis e ponteiros.
 const int LARGURA_T = 900;
 const int ALTURA_T = 700;
-const int FRAMES = 60;
  
 ALLEGRO_DISPLAY *janela = NULL;
 ALLEGRO_EVENT_QUEUE *fila_eventos = NULL;
@@ -29,8 +27,8 @@ bool iniciar();
 
 int jogo()
 {
-	bool sair = false;
-    int tecla = 1;
+    bool sair = false;
+    int tecla = 0;
  
     if (!iniciar())
     {
@@ -39,11 +37,8 @@ int jogo()
  
     al_draw_bitmap(fundo, 0, 0, 0);
     int x=450,y=350;
-    while (!sair)//logica dentro do jogo
+    while (!sair)
     {
-
-        al_play_sample_instance(inst_trilha);//toca musica até o jogo ser fechado
-
         while(!al_is_event_queue_empty(fila_eventos))
         {
             ALLEGRO_EVENT evento;
@@ -54,16 +49,16 @@ int jogo()
                 switch(evento.keyboard.keycode)
                 {
                 case ALLEGRO_KEY_UP:
-                    tecla = 2;
+                    tecla = 1;
                     break;
                 case ALLEGRO_KEY_DOWN:
-                    tecla = 3;
+                    tecla = 2;
                     break;
                 case ALLEGRO_KEY_LEFT:
-                    tecla = 4;
+                    tecla = 3;
                     break;
                 case ALLEGRO_KEY_RIGHT:
-                    tecla = 5;
+                    tecla = 4;
                     break;
                 }
             }
@@ -73,102 +68,86 @@ int jogo()
             }
         }
  
-        if (tecla)//movimentação do personagem.
+        if (tecla)
         {
             al_draw_bitmap(fundo, 0, 0, 0);
  
-            if(tecla != 1)
+            switch (tecla)
             {
-                switch (tecla)
+            case 1:
+                if(y<=245 && x<=300)
                 {
-                    case 2:
-                    if(y<=245 && x<=300)
-                    {
-                        al_draw_bitmap(cima1, x, y,0);
-                    }
-                    else if(y<=245 && x>=560)
-                    {
-                        al_draw_bitmap(cima1, x, y, 0);
-                    }   
-            	    else if(y<=200)
-            	    {
-                        al_draw_bitmap(cima1, x, y,0);
-            	    }
-            	    else
-            	    {
-                	    al_draw_bitmap(cima1, x, y-=4,0);
-                    }
-
-                    al_flip_display();
-                    sleep(0.1);//funciona
-
-                    break;
-
-
-                    case 3:
-            	    if(y>=520)
-            	    {
-            		    al_draw_bitmap(baixo1, x, y, 0);
-            	    }
-            	    else
-            	    {
-                	    al_draw_bitmap(baixo1, x, y+=4, 0);
-                    }
-                    al_flip_display();
-                    sleep(0.1);
-                    break;
-
-
-                    case 4:
-                    if(x<=310 && y<=230)
-                    {
-                        al_draw_bitmap(esquerda1, x, y, 0);
-                    }
-            	    else if(x<=0)
-                    {
-            		    al_draw_bitmap(esquerda1, x, y, 0);
-            	    }
-            	    else
-            	    {
-                	    al_draw_bitmap(esquerda1, x-=4, y, 0);
-                    }
-                    al_flip_display();
-                    sleep(0.1);
-                    break;
-
-
-                    case 5:
-                    if(x>=560 && y<=230)
-                    {
-                        al_draw_bitmap(direita1, x, y, 0);
-                    }
-            	    else if(x>=860)
-            	    {
-                        al_draw_bitmap(direita1, x, y, 0);
-                    }
-                    else
-                    {
-                        al_draw_bitmap(direita1, x+=4, y, 0);
-                    }
-                    al_flip_display();
-                    sleep(0.1);
-                    break;
+                    al_draw_bitmap(cima1, x, y,0);
                 }
-            }
-            else
-            {
-                al_draw_bitmap(parado,x,y,0);
+                else if(y<=245 && x>=560)
+                {
+                    al_draw_bitmap(cima1, x, y, 0);
+                }
+                else if(y<=200)
+                {
+                    al_draw_bitmap(cima1, x, y,0);
+                }
+                else
+                {
+                    al_draw_bitmap(cima1, x, y-=5,0);
+                }
+
                 al_flip_display();
                 sleep(0.1);//funciona
+                break;
+            case 2:
+                if(y>=520)
+                {
+                    al_draw_bitmap(baixo1, x, y, 0);
+                }
+                else
+                {
+                    al_draw_bitmap(baixo1, x, y+=5, 0);
+                }
+                al_flip_display();
+                sleep(0.1);
+                break;
+            case 3:
+                if(x<=310 && y<=230)
+                {
+                    al_draw_bitmap(esquerda1, x, y, 0);
+                }
+                else if(x<=0)
+                {
+                    al_draw_bitmap(esquerda1, x, y, 0);
+                }
+                else
+                {
+                    al_draw_bitmap(esquerda1, x-=5, y, 0);
+                }
+                al_flip_display();
+                sleep(0.1);
+                break;
+            case 4:
+                if(x>=560 && y<=230)
+                {
+                    al_draw_bitmap(direita1, x, y, 0);
+                }
+                else if(x>=860)
+                {
+                    al_draw_bitmap(direita1, x, y, 0);
+                }
+                else
+                {
+                    al_draw_bitmap(direita1, x+=5, y, 0);
+                }
+                al_flip_display();
+                sleep(0.1);
+                break;
             }
+            
+            tecla = 0;
         }
- 	al_flip_display();
-
+    al_flip_display();
 
     }
 
-
-//-----destruindo ponteiros para as variaveis--------
+    //-----destruindo ponteiros para as variaveis--------
     al_destroy_bitmap(fundo);
     al_destroy_bitmap(cima1);
     al_destroy_bitmap(esquerda1);
@@ -183,20 +162,16 @@ int jogo()
     al_destroy_display(janela);
     al_destroy_event_queue(fila_eventos);
     al_destroy_sample(trilha);
-
- 
     return 0;
 }
 
  
 int main(void)
 {
-
-	jogo();
-
+    jogo();
 }
     
-//------metodo para inicialização------
+ //metodo para inicializacao
 bool iniciar()
 {
     if (!al_init())
