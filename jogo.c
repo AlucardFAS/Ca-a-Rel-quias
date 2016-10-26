@@ -11,16 +11,12 @@ const int ALTURA_T = 700;
 ALLEGRO_DISPLAY *janela = NULL;
 ALLEGRO_EVENT_QUEUE *fila_eventos = NULL;
 ALLEGRO_BITMAP *fundo = NULL;
-ALLEGRO_BITMAP *cima1 = NULL;
-ALLEGRO_BITMAP *cima2 = NULL;
-ALLEGRO_BITMAP *baixo1 = NULL;
-ALLEGRO_BITMAP *baixo2 = NULL;
-ALLEGRO_BITMAP *esquerda1 = NULL;
-ALLEGRO_BITMAP *esquerda2 = NULL;
-ALLEGRO_BITMAP *direita1 = NULL;
-ALLEGRO_BITMAP *direita2 = NULL;
+ALLEGRO_BITMAP *cima[2];
+ALLEGRO_BITMAP *baixo[2];
+ALLEGRO_BITMAP *esquerda[2];
+ALLEGRO_BITMAP *direita[2];
 ALLEGRO_SAMPLE *trilha = NULL;
-ALLEGRO_BITMAP *parado = NULL;
+ALLEGRO_BITMAP *parado[1];
 ALLEGRO_SAMPLE_INSTANCE *inst_trilha = NULL;
 
 bool iniciar();
@@ -29,6 +25,7 @@ int jogo()
 {
     bool sair = false;
     int tecla = 0;
+    int i=0;
  
     if (!iniciar())
     {
@@ -77,19 +74,59 @@ int jogo()
             case 1:
                 if(y<=245 && x<=300)
                 {
-                    al_draw_bitmap(cima1, x, y,0);
+                    if(i==0)
+                    {
+                        al_draw_bitmap(cima[i], x, y,0);
+                        i++;
+                    }
+                    else if(i==1)
+                    {
+                        al_draw_bitmap(cima[i], x, y,0);
+                        i--;
+                    }
+                    al_flip_display();
                 }
                 else if(y<=245 && x>=560)
                 {
-                    al_draw_bitmap(cima1, x, y, 0);
+                    if(i==0)
+                    {
+                        al_draw_bitmap(cima[i], x, y,0);
+                        i++;
+                    }
+                    else if(i==1)
+                    {
+                        al_draw_bitmap(cima[i], x, y,0);
+                        i--;
+                    }
+                    al_flip_display();
                 }
                 else if(y<=200)
                 {
-                    al_draw_bitmap(cima1, x, y,0);
+                    if(i==0)
+                    {
+                        al_draw_bitmap(cima[i], x, y,0);
+                        i++;
+                    }
+                    else if(i==1)
+                    {
+                        al_draw_bitmap(cima[i], x, y,0);
+                        i--;
+                    }
+                    al_flip_display();
                 }
                 else
                 {
-                    al_draw_bitmap(cima1, x, y-=5,0);
+                    if(i==0)
+                    {
+                        al_draw_bitmap(cima[i], x, y-=5,0);
+                        i++;
+                    }
+                    else if(i==1)
+                    {
+                        al_draw_bitmap(cima[i], x, y-=5,0);
+                        i--;
+                    }
+                    al_flip_display();
                 }
 
                 al_flip_display();
@@ -98,11 +135,31 @@ int jogo()
             case 2:
                 if(y>=520)
                 {
-                    al_draw_bitmap(baixo1, x, y, 0);
+                    if(i==0)
+                    {
+                        al_draw_bitmap(baixo[i], x, y,0);
+                        i++;
+                    }
+                    else if(i==1)
+                    {
+                        al_draw_bitmap(baixo[i], x, y,0);
+                        i--;
+                    }
+                    al_flip_display();
                 }
                 else
                 {
-                    al_draw_bitmap(baixo1, x, y+=5, 0);
+                    if(i==0)
+                    {
+                        al_draw_bitmap(baixo[i], x, y+=5,0);
+                        i++;
+                    }
+                    else if(i==1)
+                    {
+                        al_draw_bitmap(baixo[i], x, y+=5,0);
+                        i--;
+                    }
+                    al_flip_display();
                 }
                 al_flip_display();
                 sleep(0.1);
@@ -110,15 +167,45 @@ int jogo()
             case 3:
                 if(x<=310 && y<=230)
                 {
-                    al_draw_bitmap(esquerda1, x, y, 0);
+                    if(i==0)
+                    {
+                        al_draw_bitmap(esquerda[i], x, y,0);
+                        i++;
+                    }
+                    else if(i==1)
+                    {
+                        al_draw_bitmap(esquerda[i], x, y,0);
+                        i--;
+                    }
+                    al_flip_display();
                 }
                 else if(x<=0)
                 {
-                    al_draw_bitmap(esquerda1, x, y, 0);
+                    if(i==0)
+                    {
+                        al_draw_bitmap(esquerda[i], x, y,0);
+                        i++;
+                    }
+                    else if(i==1)
+                    {
+                        al_draw_bitmap(esquerda[i], x, y,0);
+                        i--;
+                    }
+                    al_flip_display();
                 }
                 else
                 {
-                    al_draw_bitmap(esquerda1, x-=5, y, 0);
+                    if(i==0)
+                    {
+                        al_draw_bitmap(direita[i], x-=5, y,0);
+                        i++;
+                    }
+                    else if(i==1)
+                    {
+                        al_draw_bitmap(direita[i], x-=5, y,0);
+                        i--;
+                    }
+                    al_flip_display();
                 }
                 al_flip_display();
                 sleep(0.1);
@@ -126,15 +213,45 @@ int jogo()
             case 4:
                 if(x>=560 && y<=230)
                 {
-                    al_draw_bitmap(direita1, x, y, 0);
+                    if(i==0)
+                    {
+                        al_draw_bitmap(direita[i], x, y,0);
+                        i++;
+                    }
+                    else if(i==1)
+                    {
+                        al_draw_bitmap(direita[i], x, y,0);
+                        i--;
+                    }
+                    al_flip_display();
                 }
                 else if(x>=860)
                 {
-                    al_draw_bitmap(direita1, x, y, 0);
+                    if(i==0)
+                    {
+                        al_draw_bitmap(direita[i], x, y,0);
+                        i++;
+                    }
+                    else if(i==1)
+                    {
+                        al_draw_bitmap(direita[i], x, y,0);
+                        i--;
+                    }
+                    al_flip_display();
                 }
                 else
                 {
-                    al_draw_bitmap(direita1, x+=5, y, 0);
+                    if(i==0)
+                    {
+                        al_draw_bitmap(direita[i], x+=5, y,0);
+                        i++;
+                    }
+                    else if(i==1)
+                    {
+                        al_draw_bitmap(direita[i], x+=5, y,0);
+                        i--;
+                    }
+                    al_flip_display();
                 }
                 al_flip_display();
                 sleep(0.1);
@@ -149,15 +266,15 @@ int jogo()
 
     //-----destruindo ponteiros para as variaveis--------
     al_destroy_bitmap(fundo);
-    al_destroy_bitmap(cima1);
-    al_destroy_bitmap(esquerda1);
-    al_destroy_bitmap(direita1);
-    al_destroy_bitmap(baixo1); 
-    al_destroy_bitmap(cima2);
-    al_destroy_bitmap(esquerda2);
-    al_destroy_bitmap(direita2);
-    al_destroy_bitmap(baixo2); 
-    al_destroy_bitmap(parado);
+    al_destroy_bitmap(cima[0]);
+    al_destroy_bitmap(esquerda[0]);
+    al_destroy_bitmap(direita[0]);
+    al_destroy_bitmap(baixo[0]); 
+    al_destroy_bitmap(cima[1]);
+    al_destroy_bitmap(esquerda[1]);
+    al_destroy_bitmap(direita[1]);
+    al_destroy_bitmap(baixo[1]); 
+    al_destroy_bitmap(parado[0]);
     al_destroy_sample_instance(inst_trilha);
     al_destroy_display(janela);
     al_destroy_event_queue(fila_eventos);
@@ -218,8 +335,8 @@ bool iniciar()
         al_destroy_event_queue(fila_eventos);
         return false;
     }
-    esquerda1 = al_load_bitmap("esquerda1.png");
-    if (!esquerda1)
+    esquerda[0] = al_load_bitmap("esquerda1.png");
+    if (!esquerda[0])
     {
         fprintf(stderr, "Falha ao carregar personagem.\n");
         al_destroy_display(janela);
@@ -227,95 +344,95 @@ bool iniciar()
         al_destroy_bitmap(fundo);
         return false;
     }
-    esquerda2 = al_load_bitmap("esquerda2.png");
-    if (!esquerda2)
+    esquerda[1] = al_load_bitmap("esquerda2.png");
+    if (!esquerda[1])
     {
         fprintf(stderr, "Falha ao carregar personagem.\n");
         al_destroy_display(janela);
         al_destroy_event_queue(fila_eventos);
         al_destroy_bitmap(fundo);
-        al_destroy_bitmap(esquerda1);
+        al_destroy_bitmap(esquerda[0]);
         return false;
     }
-    direita1 = al_load_bitmap("direita1.png");
-    if (!direita1)
+    direita[0] = al_load_bitmap("direita1.png");
+    if (!direita[0])
     {
         fprintf(stderr, "Falha ao carregar personagem.\n");
         al_destroy_display(janela);
         al_destroy_event_queue(fila_eventos);
         al_destroy_bitmap(fundo);
-        al_destroy_bitmap(esquerda1);
-        al_destroy_bitmap(esquerda2);
+        al_destroy_bitmap(esquerda[0]);
+        al_destroy_bitmap(esquerda[1]);
         return false;
     }
-    direita2 = al_load_bitmap("direita2.png");
-    if (!direita2)
+    direita[1] = al_load_bitmap("direita2.png");
+    if (!direita[1])
     {
         fprintf(stderr, "Falha ao carregar personagem.\n");
         al_destroy_display(janela);
         al_destroy_event_queue(fila_eventos);
         al_destroy_bitmap(fundo);
-        al_destroy_bitmap(direita1);
-        al_destroy_bitmap(esquerda1);
-        al_destroy_bitmap(esquerda2);
+        al_destroy_bitmap(direita[0]);
+        al_destroy_bitmap(esquerda[0]);
+        al_destroy_bitmap(esquerda[1]);
         return false;
     }
-    cima1 = al_load_bitmap("cima1.png");
-    if (!cima1)
+    cima[0] = al_load_bitmap("cima1.png");
+    if (!cima[0])
     {
         fprintf(stderr, "Falha ao carregar personagem.\n");
         al_destroy_display(janela);
         al_destroy_event_queue(fila_eventos);
         al_destroy_bitmap(fundo);
-        al_destroy_bitmap(esquerda1);
-        al_destroy_bitmap(direita1);
-        al_destroy_bitmap(esquerda2);
-        al_destroy_bitmap(direita2);
+        al_destroy_bitmap(esquerda[0]);
+        al_destroy_bitmap(direita[0]);
+        al_destroy_bitmap(esquerda[1]);
+        al_destroy_bitmap(direita[1]);
         return false;
     }
-    cima2 = al_load_bitmap("cima2.png");
-    if (!cima2)
+    cima[1] = al_load_bitmap("cima2.png");
+    if (!cima[1])
     {
         fprintf(stderr, "Falha ao carregar personagem.\n");
         al_destroy_display(janela);
         al_destroy_event_queue(fila_eventos);
         al_destroy_bitmap(fundo);
-        al_destroy_bitmap(esquerda1);
-        al_destroy_bitmap(direita1);
-        al_destroy_bitmap(esquerda2);
-        al_destroy_bitmap(direita2);
-        al_destroy_bitmap(cima1);
+        al_destroy_bitmap(esquerda[0]);
+        al_destroy_bitmap(direita[0]);
+        al_destroy_bitmap(esquerda[1]);
+        al_destroy_bitmap(direita[1]);
+        al_destroy_bitmap(cima[0]);
         return false;
     }
-    baixo1 = al_load_bitmap("baixo1.png");
-    if (!baixo1)
+    baixo[0] = al_load_bitmap("baixo1.png");
+    if (!baixo[0])
     {
         fprintf(stderr, "Falha ao carregar personagem.\n");
         al_destroy_display(janela);
         al_destroy_event_queue(fila_eventos);
         al_destroy_bitmap(fundo);
-        al_destroy_bitmap(esquerda1);
-        al_destroy_bitmap(direita1);
-        al_destroy_bitmap(esquerda2);
-        al_destroy_bitmap(direita2);
-        al_destroy_bitmap(cima1);
-        al_destroy_bitmap(cima2);
+        al_destroy_bitmap(esquerda[0]);
+        al_destroy_bitmap(direita[0]);
+        al_destroy_bitmap(esquerda[1]);
+        al_destroy_bitmap(direita[1]);
+        al_destroy_bitmap(cima[0]);
+        al_destroy_bitmap(cima[1]);
         return false;
     }
-    baixo2 = al_load_bitmap("baixo2.png");
-    if (!baixo2)
+    baixo[1] = al_load_bitmap("baixo2.png");
+    if (!baixo[1])
     {
         fprintf(stderr, "Falha ao carregar personagem.\n");
         al_destroy_display(janela);
         al_destroy_event_queue(fila_eventos);
         al_destroy_bitmap(fundo);
-        al_destroy_bitmap(esquerda1);
-        al_destroy_bitmap(direita1);
-        al_destroy_bitmap(esquerda2);
-        al_destroy_bitmap(direita2);
-        al_destroy_bitmap(cima1);
-        al_destroy_bitmap(cima2);
-        al_destroy_bitmap(baixo1);
+        al_destroy_bitmap(esquerda[0]);
+        al_destroy_bitmap(direita[1]);
+        al_destroy_bitmap(esquerda[1]);
+        al_destroy_bitmap(direita[0]);
+        al_destroy_bitmap(cima[0]);
+        al_destroy_bitmap(cima[1]);
+        al_destroy_bitmap(baixo[0]);
         return false;
     }
     if (!al_install_audio())
@@ -324,14 +441,14 @@ bool iniciar()
         al_destroy_display(janela);
         al_destroy_event_queue(fila_eventos);
         al_destroy_bitmap(fundo);
-        al_destroy_bitmap(esquerda1);
-        al_destroy_bitmap(direita1);
-        al_destroy_bitmap(esquerda2);
-        al_destroy_bitmap(direita2);
-        al_destroy_bitmap(cima1);
-        al_destroy_bitmap(cima2);
-        al_destroy_bitmap(baixo1);
-        al_destroy_bitmap(baixo2);
+        al_destroy_bitmap(esquerda[0]);
+        al_destroy_bitmap(direita[0]);
+        al_destroy_bitmap(esquerda[1]);
+        al_destroy_bitmap(direita[1]);
+        al_destroy_bitmap(cima[0]);
+        al_destroy_bitmap(cima[1]);
+        al_destroy_bitmap(baixo[0]);
+        al_destroy_bitmap(baixo[1]);
         return false;
     }
 
@@ -341,14 +458,14 @@ bool iniciar()
         al_destroy_display(janela);
         al_destroy_event_queue(fila_eventos);
         al_destroy_bitmap(fundo);
-        al_destroy_bitmap(esquerda1);
-        al_destroy_bitmap(direita1);
-        al_destroy_bitmap(esquerda2);
-        al_destroy_bitmap(direita2);
-        al_destroy_bitmap(cima1);
-        al_destroy_bitmap(cima2);
-        al_destroy_bitmap(baixo1);
-        al_destroy_bitmap(baixo2);
+        al_destroy_bitmap(esquerda[0]);
+        al_destroy_bitmap(direita[0]);
+        al_destroy_bitmap(esquerda[1]);
+        al_destroy_bitmap(direita[1]);
+        al_destroy_bitmap(cima[0]);
+        al_destroy_bitmap(cima[1]);
+        al_destroy_bitmap(baixo[0]);
+        al_destroy_bitmap(baixo[1]);
         return false;
     }
 
@@ -358,14 +475,14 @@ bool iniciar()
         al_destroy_display(janela);
         al_destroy_event_queue(fila_eventos);
         al_destroy_bitmap(fundo);
-        al_destroy_bitmap(esquerda1);
-        al_destroy_bitmap(direita1);
-        al_destroy_bitmap(esquerda2);
-        al_destroy_bitmap(direita2);
-        al_destroy_bitmap(cima1);
-        al_destroy_bitmap(cima2);
-        al_destroy_bitmap(baixo1);
-        al_destroy_bitmap(baixo2);
+        al_destroy_bitmap(esquerda[0]);
+        al_destroy_bitmap(direita[0]);
+        al_destroy_bitmap(esquerda[1]);
+        al_destroy_bitmap(direita[1]);
+        al_destroy_bitmap(cima[0]);
+        al_destroy_bitmap(cima[1]);
+        al_destroy_bitmap(baixo[0]);
+        al_destroy_bitmap(baixo[1]);
         return false;
     }
 
@@ -376,14 +493,14 @@ bool iniciar()
         al_destroy_display(janela);
         al_destroy_event_queue(fila_eventos);
         al_destroy_bitmap(fundo);
-        al_destroy_bitmap(esquerda1);
-        al_destroy_bitmap(direita1);
-        al_destroy_bitmap(esquerda2);
-        al_destroy_bitmap(direita2);
-        al_destroy_bitmap(cima1);
-        al_destroy_bitmap(cima2);
-        al_destroy_bitmap(baixo1);
-        al_destroy_bitmap(baixo2);
+        al_destroy_bitmap(esquerda[0]);
+        al_destroy_bitmap(direita[0]);
+        al_destroy_bitmap(esquerda[1]);
+        al_destroy_bitmap(direita[1]);
+        al_destroy_bitmap(cima[0]);
+        al_destroy_bitmap(cima[1]);
+        al_destroy_bitmap(baixo[0]);
+        al_destroy_bitmap(baixo[1]);
         return false;
     }
 
@@ -395,32 +512,32 @@ bool iniciar()
         al_destroy_event_queue(fila_eventos);
         al_destroy_sample(trilha);
         al_destroy_bitmap(fundo);
-        al_destroy_bitmap(esquerda1);
-        al_destroy_bitmap(direita1);
-        al_destroy_bitmap(esquerda2);
-        al_destroy_bitmap(direita2);
-        al_destroy_bitmap(cima1);
-        al_destroy_bitmap(cima2);
-        al_destroy_bitmap(baixo1);
-        al_destroy_bitmap(baixo2);
+        al_destroy_bitmap(esquerda[0]);
+        al_destroy_bitmap(direita[0]);
+        al_destroy_bitmap(esquerda[1]);
+        al_destroy_bitmap(direita[1]);
+        al_destroy_bitmap(cima[0]);
+        al_destroy_bitmap(cima[1]);
+        al_destroy_bitmap(baixo[0]);
+        al_destroy_bitmap(baixo[1]);
         al_destroy_sample(trilha);
         return false;
     }
-    parado = al_load_bitmap("parado.png");
-    if (!parado)
+    parado[0]= al_load_bitmap("parado.png");
+    if (!parado[0])
     {
         fprintf(stderr, "Falha ao carregar personagem.\n");
         al_destroy_display(janela);
         al_destroy_event_queue(fila_eventos);
         al_destroy_bitmap(fundo);
-        al_destroy_bitmap(esquerda1);
-        al_destroy_bitmap(direita1);
-        al_destroy_bitmap(esquerda2);
-        al_destroy_bitmap(direita2);
-        al_destroy_bitmap(cima1);
-        al_destroy_bitmap(cima2);
-        al_destroy_bitmap(baixo1);
-        al_destroy_bitmap(baixo2);
+        al_destroy_bitmap(esquerda[0]);
+        al_destroy_bitmap(direita[0]);
+        al_destroy_bitmap(esquerda[1]);   
+        al_destroy_bitmap(direita[1]);
+        al_destroy_bitmap(cima[0]);
+        al_destroy_bitmap(cima[1]);
+        al_destroy_bitmap(baixo[0]);
+        al_destroy_bitmap(baixo[1]);
         al_destroy_sample(trilha);
         al_destroy_sample_instance(inst_trilha);
         return false;
