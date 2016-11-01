@@ -36,6 +36,8 @@ int jogo()
     int x=450,y=350;
     while (!sair)
     {
+        show_mouse(buffer);
+        al_play_sample_instance(inst_trilha);//toca musica até o jogo ser fechado
         while(!al_is_event_queue_empty(fila_eventos))
         {
             ALLEGRO_EVENT evento;
