@@ -36,13 +36,11 @@ int jogo()
     int x=450,y=350;
     while (!sair)
     {
-
-        al_play_sample_instance(inst_trilha);//toca musica até o jogo ser fechado
-        
         while(!al_is_event_queue_empty(fila_eventos))
         {
             ALLEGRO_EVENT evento;
             al_wait_for_event(fila_eventos, &evento);
+             al_play_sample_instance(inst_trilha);//toca musica até o jogo ser fechado
  
             if (evento.type == ALLEGRO_EVENT_KEY_DOWN)
             {
@@ -200,12 +198,12 @@ int jogo()
                 {
                     if(i==0)
                     {
-                        al_draw_bitmap(direita[i], x-=5, y,0);
+                        al_draw_bitmap(esquerda[i], x-=5, y,0);
                         i++;
                     }
                     else if(i==1)
                     {
-                        al_draw_bitmap(direita[i], x-=5, y,0);
+                        al_draw_bitmap(esquerda[i], x-=5, y,0);
                         i--;
                     }
                     al_flip_display();
@@ -550,7 +548,7 @@ bool iniciar()
 
     al_attach_sample_instance_to_mixer(inst_trilha, al_get_default_mixer());//alocando o musica em um mixer padrão(Ubuntu)
     al_set_sample_instance_playmode(inst_trilha, ALLEGRO_PLAYMODE_LOOP);//loop para a musica.
-    al_set_sample_instance_gain(inst_trilha, 0.5);//volume da musica de fundo.
+    al_set_sample_instance_gain(inst_trilha, 0.3);//volume da musica de fundo.
 
  
     al_register_event_source(fila_eventos, al_get_keyboard_event_source());
