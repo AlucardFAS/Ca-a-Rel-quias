@@ -7,6 +7,7 @@
  
 const int LARGURA_T = 900;
 const int ALTURA_T = 700;
+int itens[3] = {0,0,0};
  
 ALLEGRO_DISPLAY *janela = NULL;
 ALLEGRO_EVENT_QUEUE *fila_eventos = NULL;
@@ -17,9 +18,12 @@ ALLEGRO_BITMAP *esquerda[2];
 ALLEGRO_BITMAP *direita[2];
 ALLEGRO_SAMPLE *trilha = NULL;
 ALLEGRO_BITMAP *parado[1];
+ALLEGRO_BITMAP *item[3];
 ALLEGRO_SAMPLE_INSTANCE *inst_trilha = NULL;
 
 bool iniciar();
+int acharoseta();
+int achanarmer();
 
 int jogo()
 {
@@ -44,7 +48,7 @@ int jogo()
  
             if (evento.type == ALLEGRO_EVENT_KEY_DOWN)
             {
-                switch(evento.keyboard.keycode)
+                switch(evento.keyboard.keycode)// muda a variavel tecla para utilizar o teclado no switch do outro if
                 {
                 case ALLEGRO_KEY_UP:
                     tecla = 1;
@@ -57,6 +61,9 @@ int jogo()
                     break;
                 case ALLEGRO_KEY_RIGHT:
                     tecla = 4;
+                    break;
+                case ALLEGRO_KEY_ENTER:
+                    tecla = 5;
                     break;
                 }
             }
@@ -72,7 +79,9 @@ int jogo()
  
             switch (tecla)
             {
-            case 1:
+            /*case 0:
+                al_draw_bitmap(parado[0], x, y, 0);*/ //ainda nao fica parado
+            case 1: //movimenta pra cima
                 if(y<=245 && x<=300)
                 {
                     if(i==0)
@@ -133,7 +142,7 @@ int jogo()
                 al_flip_display();
                 sleep(0.1);//funciona
                 break;
-            case 2:
+            case 2: // movimenta pra baixo
                 if(y>=520)
                 {
                     if(i==0)
@@ -165,7 +174,7 @@ int jogo()
                 al_flip_display();
                 sleep(0.1);
                 break;
-            case 3:
+            case 3: // movimenta pra esquerda
                 if(x<=310 && y<=230)
                 {
                     if(i==0)
@@ -211,7 +220,7 @@ int jogo()
                 al_flip_display();
                 sleep(0.1);
                 break;
-            case 4:
+            case 4: // movimenta pra direita
                 if(x>=560 && y<=230)
                 {
                     if(i==0)
@@ -256,7 +265,20 @@ int jogo()
                 }
                 al_flip_display();
                 sleep(0.1);
-                break;
+            break;
+            case 5: // interage com o item
+
+                if(x>=340 && y>=230 && x<=440 && y<=330)// acha o item 1
+                {
+                    acharoseta();
+                    sleep(1);
+                }
+                else
+                {
+                    sleep(0.1);//mantem 0.1 segundo parado se clicar no local errado
+                }
+
+            break;
             }
             
             tecla = 0;
@@ -287,6 +309,26 @@ int jogo()
 int main(void)
 {
     jogo();
+}
+
+int acharoseta()
+{
+    al_flip_display();
+    al_draw_bitmap(item[0],450,350,0);
+    sleep(2);
+    itens[0] = 1;
+
+    return 1;
+}
+
+int achanarmer()
+{
+    al_flip_display();
+    al_draw_bitmap(item[1],450,350,0);
+    sleep(2);
+    itens[1] = 1;
+
+    return 1;
 }
     
  //metodo para inicializacao
@@ -541,6 +583,47 @@ bool iniciar()
         al_destroy_bitmap(baixo[1]);
         al_destroy_sample(trilha);
         al_destroy_sample_instance(inst_trilha);
+        return false;
+    }
+    item[0]= al_load_bitmap("frag_roseta.png");
+    if (!item[0])
+    {
+        fprintf(stderr, "Falha ao carregar itens de jogo.\n");
+        al_destroy_display(janela);
+        al_destroy_event_queue(fila_eventos);
+        al_destroy_bitmap(fundo);
+        al_destroy_bitmap(esquerda[0]);
+        al_destroy_bitmap(direita[0]);
+        al_destroy_bitmap(esquerda[1]);   
+        al_destroy_bitmap(direita[1]);
+        al_destroy_bitmap(cima[0]);
+        al_destroy_bitmap(cima[1]);
+        al_destroy_bitmap(baixo[0]);
+        al_destroy_bitmap(baixo[1]);
+        al_destroy_sample(trilha);
+        al_destroy_sample_instance(inst_trilha);
+        al_destroy_bitmap(parado[0]);
+        return false;
+    }
+    item[1]= al_load_bitmap("Narmer.png");
+    if (!item[1])
+    {
+        fprintf(stderr, "Falha ao carregar itens de jogo.\n");
+        al_destroy_display(janela);
+        al_destroy_event_queue(fila_eventos);
+        al_destroy_bitmap(fundo);
+        al_destroy_bitmap(esquerda[0]);
+        al_destroy_bitmap(direita[0]);
+        al_destroy_bitmap(esquerda[1]);   
+        al_destroy_bitmap(direita[1]);
+        al_destroy_bitmap(cima[0]);
+        al_destroy_bitmap(cima[1]);
+        al_destroy_bitmap(baixo[0]);
+        al_destroy_bitmap(baixo[1]);
+        al_destroy_sample(trilha);
+        al_destroy_sample_instance(inst_trilha);
+        al_destroy_bitmap(parado[0]);
+        al_destroy_bitmap(item[0]);
         return false;
     }
 
