@@ -22,7 +22,7 @@ ALLEGRO_BITMAP *item[3];
 ALLEGRO_SAMPLE_INSTANCE *inst_trilha = NULL;
 
 bool iniciar();
-int acharoseta();
+int acharoseta(int x, int y);
 int achanarmer();
 
 int jogo()
@@ -270,7 +270,7 @@ int jogo()
 
                 if(x>=340 && y>=230 && x<=440 && y<=330)// acha o item 1
                 {
-                    acharoseta();
+                    acharoseta(x,y);
                     sleep(1);
                 }
                 else
@@ -311,11 +311,13 @@ int main(void)
     jogo();
 }
 
-int acharoseta()
+int acharoseta(int x,int y)
 {
+
     al_flip_display();
+    al_draw_bitmap(parado[0],x,y,0);
     al_draw_bitmap(item[0],450,350,0);
-    sleep(2);
+    //sleep(2);
     itens[0] = 1;
 
     return 1;
