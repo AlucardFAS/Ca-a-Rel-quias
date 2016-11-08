@@ -2,14 +2,14 @@
 #include <allegro5/allegro_image.h>
 #include <allegro5/allegro_audio.h>
 #include <allegro5/allegro_acodec.h>
+#include <allegro5/allegro_native_dialog.h>
 #include <stdio.h>
 #include <stdbool.h>
  
 const int LARGURA_T = 900;
 const int ALTURA_T = 700;
 int itens[3] = {0,0,0};
-
-ALLEGRO_DISPLAY *bau = NULL; 
+ 
 ALLEGRO_DISPLAY *janela = NULL;
 ALLEGRO_EVENT_QUEUE *fila_eventos = NULL;
 ALLEGRO_BITMAP *fundo = NULL;
@@ -45,7 +45,7 @@ int jogo()
         {
             ALLEGRO_EVENT evento;
             al_wait_for_event(fila_eventos, &evento);
-             al_play_sample_instance(inst_trilha);//toca musica até o jogo ser fechado
+            al_play_sample_instance(inst_trilha);//toca musica até o jogo ser fechado
  
             if (evento.type == ALLEGRO_EVENT_KEY_DOWN)
             {
@@ -69,6 +69,12 @@ int jogo()
                 case ALLEGRO_KEY_B:
                     tecla = 6;
                     break;
+                case ALLEGRO_KEY_H:
+                    tecla = 7;
+                    break;
+                case ALLEGRO_KEY_1:
+                    tecla = 8;
+                    break;
                 }
             }
             else if (evento.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
@@ -85,7 +91,7 @@ int jogo()
             {
             /*case 0:
                 al_draw_bitmap(parado[0], x, y, 0);*/ //ainda nao fica parado
-            case 1: //movimenta pra cima
+            case 1: // movimenta pra cima
                 if(y<=245 && x<=300)
                 {
                     if(i==0)
@@ -269,7 +275,7 @@ int jogo()
                 }
                 al_flip_display();
                 sleep(0.1);
-            break;
+                break;
             case 5: // interage com o item
 
                 if(x>=310 && y>=200 && x<=560 && y<=245)// acha o item 1
@@ -288,11 +294,23 @@ int jogo()
                     sleep(0.1);//mantem 0.1 segundo parado se clicar no local errado
                     al_flip_display();
                 }
-
-            break;
+                break;
             case 6:
                 abrirbau();
-            break;
+                break;
+            case 7:
+            
+                al_show_native_message_box(NULL, "Ajuda",
+                "Setas movimentam", "",
+                NULL, ALLEGRO_MESSAGEBOX_QUESTION);
+
+                al_show_native_message_box(NULL, "Ajuda",
+                "Enter interage", "",
+                NULL, ALLEGRO_MESSAGEBOX_QUESTION);
+
+                al_draw_bitmap(parado[0],x,y,0);
+                al_flip_display();
+             
             }
             
             tecla = 0;
@@ -316,7 +334,7 @@ int jogo()
     al_destroy_display(janela);
     al_destroy_event_queue(fila_eventos);
     al_destroy_sample(trilha);
-    al_destroy_display(bau);
+
     return 0;
 }
 
@@ -328,15 +346,28 @@ int main(void)
 
 int abrirbau()
 {
+    ALLEGRO_DISPLAY *bau = NULL;
+    ALLEGRO_EVENT_QUEUE *evento_bau = NULL;
     bau = al_create_display(450,300);
-    if (!bau)
+    evento_bau = al_create_event_queue();
+    bool fechatela = false;
+
+    while(!fechatela)
     {
-        fprintf(stderr, "falha ao carregar tela do bau.\n");
+        while(!al_is_event_queue_empty(evento_bau))
+        {
+            ALLEGRO_EVENT evento;
+            al_wait_for_event(evento_bau, &evento);
+            if(evento.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
+            {
+                fechatela = true;
+            }
+            al_flip_display();
+        }
     }
-    al_set_window_position(bau,450, 300);
-    al_set_new_display_flags(ALLEGRO_NOFRAME);
-    al_flip_display();
-    al_rest(5);
+    al_destroy_display(bau);
+    al_destroy_event_queue(evento_bau);
+    
 }
 
 int acharoseta(int x,int y)
@@ -362,6 +393,7 @@ int achanarmer(int x, int y)
  //metodo para inicializacao
 bool iniciar()
 {
+
     if (!al_init())
     {
         fprintf(stderr, "Falha ao inicializar a Allegro.\n");
@@ -379,7 +411,7 @@ bool iniciar()
         fprintf(stderr, "Falha ao inicializar o teclado.\n");
         return false;
     }
- 
+
     janela = al_create_display(LARGURA_T, ALTURA_T);
     if (!janela)
     {
@@ -664,6 +696,6 @@ bool iniciar()
  
     al_register_event_source(fila_eventos, al_get_keyboard_event_source());
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
- 
+
     return true;
 }
