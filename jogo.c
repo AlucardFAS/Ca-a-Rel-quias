@@ -272,7 +272,7 @@ int jogo()
             break;
             case 5: // interage com o item
 
-                if(x>=340 && y>=230 && x<=440 && y<=330)// acha o item 1
+                if(x>=310 && y>=200 && x<=560 && y<=245)// acha o item 1
                 {
                     acharoseta(x,y);
                     sleep(1);
@@ -335,11 +335,10 @@ int abrirbau()
 int acharoseta(int x,int y)
 {
 
-    al_flip_display();
     al_draw_bitmap(parado[0],x,y,0);
     al_draw_bitmap(item[0],450,350,0);
-    //sleep(2);
     itens[0] = 1;
+    al_flip_display();
 
     return 1;
 }
