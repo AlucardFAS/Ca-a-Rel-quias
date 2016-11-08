@@ -8,7 +8,8 @@
 const int LARGURA_T = 900;
 const int ALTURA_T = 700;
 int itens[3] = {0,0,0};
- 
+
+ALLEGRO_DISPLAY *bau = NULL; 
 ALLEGRO_DISPLAY *janela = NULL;
 ALLEGRO_EVENT_QUEUE *fila_eventos = NULL;
 ALLEGRO_BITMAP *fundo = NULL;
@@ -24,7 +25,7 @@ ALLEGRO_SAMPLE_INSTANCE *inst_trilha = NULL;
 bool iniciar();
 int acharoseta(int x, int y);
 int achanarmer();
-
+int abrirbau();
 int jogo()
 {
     bool sair = false;
@@ -64,6 +65,9 @@ int jogo()
                     break;
                 case ALLEGRO_KEY_ENTER:
                     tecla = 5;
+                    break;
+                case ALLEGRO_KEY_B:
+                    tecla = 6;
                     break;
                 }
             }
@@ -279,6 +283,9 @@ int jogo()
                 }
 
             break;
+            case 6:
+                abrirbau();
+            break;
             }
             
             tecla = 0;
@@ -302,6 +309,7 @@ int jogo()
     al_destroy_display(janela);
     al_destroy_event_queue(fila_eventos);
     al_destroy_sample(trilha);
+    al_destroy_display(bau);
     return 0;
 }
 
@@ -309,6 +317,19 @@ int jogo()
 int main(void)
 {
     jogo();
+}
+
+int abrirbau()
+{
+    bau = al_create_display(450,300);
+    if (!bau)
+    {
+        fprintf(stderr, "falha ao carregar tela do bau.\n");
+    }
+    al_set_window_position(bau,450, 300);
+    al_set_new_display_flags(ALLEGRO_NOFRAME);
+    al_flip_display();
+    al_rest(5);
 }
 
 int acharoseta(int x,int y)
