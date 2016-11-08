@@ -24,7 +24,7 @@ ALLEGRO_SAMPLE_INSTANCE *inst_trilha = NULL;
 
 bool iniciar();
 int acharoseta(int x, int y);
-int achanarmer();
+int achanarmer(int x, int y);
 int abrirbau();
 int jogo()
 {
@@ -277,9 +277,16 @@ int jogo()
                     acharoseta(x,y);
                     sleep(1);
                 }
+                else if(x>=280 && y>=420 && x<=380 && y<=520 && itens[0]!=0)
+                {
+                    achanarmer(x,y);
+                    sleep(1);
+                }
                 else
                 {
+                    al_draw_bitmap(parado[0],x,y,0);
                     sleep(0.1);//mantem 0.1 segundo parado se clicar no local errado
+                    al_flip_display();
                 }
 
             break;
@@ -334,7 +341,6 @@ int abrirbau()
 
 int acharoseta(int x,int y)
 {
-
     al_draw_bitmap(parado[0],x,y,0);
     al_draw_bitmap(item[0],450,350,0);
     itens[0] = 1;
@@ -343,12 +349,12 @@ int acharoseta(int x,int y)
     return 1;
 }
 
-int achanarmer()
+int achanarmer(int x, int y)
 {
-    al_flip_display();
+    al_draw_bitmap(parado[0],x,y,0);
     al_draw_bitmap(item[1],450,350,0);
-    sleep(2);
     itens[1] = 1;
+    al_flip_display();
 
     return 1;
 }
