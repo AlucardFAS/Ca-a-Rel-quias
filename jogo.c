@@ -301,6 +301,7 @@ int jogo()
                 break;
             case 6:
                 abrirbau();
+                al_draw_bitmap(parado[0],0,0,0);
                 break;
             case 7:
             
@@ -362,11 +363,12 @@ int abrirbau()
     al_set_new_display_flags(ALLEGRO_NOFRAME);
     al_set_window_position(bau, 450,300);
     evento_bau = al_create_event_queue();
-    al_register_event_source(evento_bau, al_get_display_event_source(bau));
+    
     bool fechatela = false;
 
     while(!fechatela)
     {
+        al_register_event_source(evento_bau, al_get_display_event_source(bau));
         while(!al_is_event_queue_empty(evento_bau))
         {
             ALLEGRO_EVENT evento;
@@ -378,9 +380,10 @@ int abrirbau()
             al_flip_display();
         }
     }
-    al_destroy_display(bau);
-    al_destroy_event_queue(evento_bau);
     
+    al_unregister_event_source(evento_bau, al_get_display_event_source(bau));
+    /*al_destroy_display(bau);
+    al_destroy_event_queue(evento_bau);*/
 }
 
 int abriritensd()
@@ -395,6 +398,7 @@ int abriritensd()
     bool fechatela = false;
 
     al_draw_bitmap(im_item, 0, 0 ,0);
+    al_flip_display();
     while(!fechatela)
     {
         while(!al_is_event_queue_empty(evento_item))
