@@ -21,11 +21,15 @@ ALLEGRO_SAMPLE *trilha = NULL;
 ALLEGRO_BITMAP *parado[1];
 ALLEGRO_BITMAP *item[3];
 ALLEGRO_SAMPLE_INSTANCE *inst_trilha = NULL;
+ALLEGRO_BITMAP *im_item = NULL;
 
 bool iniciar();
 int acharoseta(int x, int y);
 int achanarmer(int x, int y);
 int abrirbau();
+int abriritensd();
+
+
 int jogo()
 {
     bool sair = false;
@@ -72,7 +76,7 @@ int jogo()
                 case ALLEGRO_KEY_H:
                     tecla = 7;
                     break;
-                case ALLEGRO_KEY_1:
+                case ALLEGRO_KEY_L:
                     tecla = 8;
                     break;
                 }
@@ -310,7 +314,10 @@ int jogo()
 
                 al_draw_bitmap(parado[0],x,y,0);
                 al_flip_display();
-             
+                break;
+            case 8:
+                abriritensd();
+                break;
             }
             
             tecla = 0;
@@ -334,6 +341,9 @@ int jogo()
     al_destroy_display(janela);
     al_destroy_event_queue(fila_eventos);
     al_destroy_sample(trilha);
+    al_destroy_bitmap(item[0]);
+    al_destroy_bitmap(item[1]);
+    al_destroy_bitmap(im_item);
 
     return 0;
 }
@@ -353,7 +363,6 @@ int abrirbau()
     al_set_window_position(bau, 450,300);
     evento_bau = al_create_event_queue();
     al_register_event_source(evento_bau, al_get_display_event_source(bau));
-
     bool fechatela = false;
 
     while(!fechatela)
@@ -372,6 +381,35 @@ int abrirbau()
     al_destroy_display(bau);
     al_destroy_event_queue(evento_bau);
     
+}
+
+int abriritensd()
+{
+    ALLEGRO_DISPLAY *itensd = NULL;
+    ALLEGRO_EVENT_QUEUE *evento_item = NULL;
+    itensd = al_create_display(300,300);
+    al_set_new_display_flags(ALLEGRO_NOFRAME);
+    al_set_window_position(itensd, 450,300);
+    evento_item = al_create_event_queue();
+    al_register_event_source(evento_item, al_get_display_event_source(itensd));
+    bool fechatela = false;
+
+    al_draw_bitmap(im_item, 0, 0 ,0);
+    while(!fechatela)
+    {
+        while(!al_is_event_queue_empty(evento_item))
+        {
+            ALLEGRO_EVENT evento;
+            al_wait_for_event(evento_item, &evento);
+            if(evento.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
+            {
+                fechatela = true;
+            }
+            al_flip_display();
+        }
+    }
+    al_destroy_display(itensd);
+    al_destroy_event_queue(evento_item);
 }
 
 int acharoseta(int x,int y)
@@ -691,13 +729,37 @@ bool iniciar()
         return false;
     }
 
+    im_item= al_load_bitmap("itensd.png");
+    if (!im_item)
+    {
+        fprintf(stderr, "Falha ao carregar imagem de L.\n");
+        al_destroy_display(janela);
+        al_destroy_event_queue(fila_eventos);
+        al_destroy_bitmap(fundo);
+        al_destroy_bitmap(esquerda[0]);
+        al_destroy_bitmap(direita[0]);
+        al_destroy_bitmap(esquerda[1]);   
+        al_destroy_bitmap(direita[1]);
+        al_destroy_bitmap(cima[0]);
+        al_destroy_bitmap(cima[1]);
+        al_destroy_bitmap(baixo[0]);
+        al_destroy_bitmap(baixo[1]);
+        al_destroy_sample(trilha);
+        al_destroy_sample_instance(inst_trilha);
+        al_destroy_bitmap(parado[0]);
+        al_destroy_bitmap(item[0]);
+        al_destroy_bitmap(item[1]);
+        return false;
+    }
+
+
     //-----funções para o inicio do jogo------
 
     al_attach_sample_instance_to_mixer(inst_trilha, al_get_default_mixer());//alocando o musica em um mixer padrão(Ubuntu)
     al_set_sample_instance_playmode(inst_trilha, ALLEGRO_PLAYMODE_LOOP);//loop para a musica.
-    al_set_sample_instance_gain(inst_trilha, 0.3);//volume da musica de fundo.
+    al_set_sample_instance_gain(inst_trilha, 0.8);//volume da musica de fundo.
 
- 
+    al_set_window_position(janela, LARGURA_T, ALTURA_T);
     al_register_event_source(fila_eventos, al_get_keyboard_event_source());
     al_register_event_source(fila_eventos, al_get_display_event_source(janela));
 
