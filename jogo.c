@@ -349,7 +349,11 @@ int abrirbau()
     ALLEGRO_DISPLAY *bau = NULL;
     ALLEGRO_EVENT_QUEUE *evento_bau = NULL;
     bau = al_create_display(450,300);
+    al_set_new_display_flags(ALLEGRO_NOFRAME);
+    al_set_window_position(bau, 450,300);
     evento_bau = al_create_event_queue();
+    al_register_event_source(evento_bau, al_get_display_event_source(bau));
+
     bool fechatela = false;
 
     while(!fechatela)
