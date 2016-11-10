@@ -26,8 +26,7 @@ ALLEGRO_BITMAP *im_item = NULL;
 bool iniciar();
 int acharoseta(int x, int y);
 int achanarmer(int x, int y);
-int abrirbau();
-int abriritensd();
+//int abrirbau();
 
 
 int jogo()
@@ -299,10 +298,10 @@ int jogo()
                     al_flip_display();
                 }
                 break;
-            case 6:
+            /*case 6:
                 abrirbau();
                 al_draw_bitmap(parado[0],0,0,0);
-                break;
+                break;*/
             case 7:
             
                 al_show_native_message_box(NULL, "Ajuda",
@@ -317,7 +316,8 @@ int jogo()
                 al_flip_display();
                 break;
             case 8:
-                abriritensd();
+                al_draw_bitmap(im_item, 300, 200, 0);
+                al_flip_display();             
                 break;
             }
             
@@ -355,66 +355,36 @@ int main(void)
     jogo();
 }
 
-int abrirbau()
+/*int abrirbau()
 {
-    ALLEGRO_DISPLAY *bau = NULL;
-    ALLEGRO_EVENT_QUEUE *evento_bau = NULL;
-    bau = al_create_display(450,300);
-    al_set_new_display_flags(ALLEGRO_NOFRAME);
-    al_set_window_position(bau, 450,300);
-    evento_bau = al_create_event_queue();
-    
-    bool fechatela = false;
-
-    while(!fechatela)
+    if (itens[0]==0)
     {
-        al_register_event_source(evento_bau, al_get_display_event_source(bau));
-        while(!al_is_event_queue_empty(evento_bau))
-        {
-            ALLEGRO_EVENT evento;
-            al_wait_for_event(evento_bau, &evento);
-            if(evento.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
-            {
-                fechatela = true;
-            }
-            al_flip_display();
-        }
+    	
     }
-    
-    al_unregister_event_source(evento_bau, al_get_display_event_source(bau));
-    /*al_destroy_display(bau);
-    al_destroy_event_queue(evento_bau);*/
-}
-
-int abriritensd()
-{
-    ALLEGRO_DISPLAY *itensd = NULL;
-    ALLEGRO_EVENT_QUEUE *evento_item = NULL;
-    itensd = al_create_display(300,300);
-    al_set_new_display_flags(ALLEGRO_NOFRAME);
-    al_set_window_position(itensd, 450,300);
-    evento_item = al_create_event_queue();
-    al_register_event_source(evento_item, al_get_display_event_source(itensd));
-    bool fechatela = false;
-
-    al_draw_bitmap(im_item, 0, 0 ,0);
-    al_flip_display();
-    while(!fechatela)
+    else if (itens[0]!=0)
     {
-        while(!al_is_event_queue_empty(evento_item))
-        {
-            ALLEGRO_EVENT evento;
-            al_wait_for_event(evento_item, &evento);
-            if(evento.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
-            {
-                fechatela = true;
-            }
-            al_flip_display();
-        }
+    	
     }
-    al_destroy_display(itensd);
-    al_destroy_event_queue(evento_item);
-}
+    else if (itens[1]!=0)
+    {
+    	
+    }
+    else if (itens[2]!=0)
+    {
+    	
+    }
+    else if (itens[3]!=0)
+    {
+    	
+    }
+    else if (itens[4]!=0)
+    {
+    	
+    }
+
+}*/ 
+
+
 
 int acharoseta(int x,int y)
 {
