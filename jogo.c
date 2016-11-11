@@ -8,7 +8,7 @@
  
 const int LARGURA_T = 900;
 const int ALTURA_T = 700;
-int itens[3] = {0,0,0};
+int itens[5] = {0,0,0,0,0};
  
 ALLEGRO_DISPLAY *janela = NULL;
 ALLEGRO_EVENT_QUEUE *fila_eventos = NULL;
@@ -20,13 +20,14 @@ ALLEGRO_BITMAP *direita[2];
 ALLEGRO_SAMPLE *trilha = NULL;
 ALLEGRO_BITMAP *parado[1];
 ALLEGRO_BITMAP *item[3];
+ALLEGRO_BITMAP *bau[6];
 ALLEGRO_SAMPLE_INSTANCE *inst_trilha = NULL;
 ALLEGRO_BITMAP *im_item = NULL;
 
 bool iniciar();
 int acharoseta(int x, int y);
 int achanarmer(int x, int y);
-//int abrirbau();
+int abrirbau(int x, int y);
 
 
 int jogo()
@@ -298,10 +299,9 @@ int jogo()
                     al_flip_display();
                 }
                 break;
-            /*case 6:
-                abrirbau();
-                al_draw_bitmap(parado[0],0,0,0);
-                break;*/
+            case 6:
+                abrirbau(x,y);
+                break;
             case 7:
             
                 al_show_native_message_box(NULL, "Ajuda",
@@ -316,7 +316,6 @@ int jogo()
                 al_flip_display();
                 break;
             case 8:
-                al_draw_bitmap(im_item, 300, 200, 0);
                 al_flip_display();             
                 break;
             }
@@ -355,34 +354,45 @@ int main(void)
     jogo();
 }
 
-/*int abrirbau()
+int abrirbau(int x, int y)
 {
     if (itens[0]==0)
     {
-    	
+        al_draw_bitmap(parado[0],x,y,0);
+        al_draw_bitmap(bau[0],300,200,0);
+        al_flip_display();
     }
     else if (itens[0]!=0)
     {
-    	
+        al_draw_bitmap(parado[0],x,y,0);
+        al_draw_bitmap(bau[1],300,200,0);
+        al_flip_display();    
     }
     else if (itens[1]!=0)
     {
-    	
+        al_draw_bitmap(parado[0],x,y,0);
+        al_draw_bitmap(bau[2],300,200,0);
+        al_flip_display();
     }
     else if (itens[2]!=0)
     {
-    	
+        al_draw_bitmap(parado[0],x,y,0);
+        al_draw_bitmap(bau[3],300,200,0);
+        al_flip_display();
     }
     else if (itens[3]!=0)
     {
-    	
+        al_draw_bitmap(parado[0],x,y,0);
+        al_draw_bitmap(bau[4],300,200,0);
+        al_flip_display();
     }
     else if (itens[4]!=0)
     {
-    	
+        al_draw_bitmap(parado[0],x,y,0);
+        al_draw_bitmap(bau[5],300,200,0);
+        al_flip_display();
     }
-
-}*/ 
+}
 
 
 
@@ -703,10 +713,10 @@ bool iniciar()
         return false;
     }
 
-    im_item= al_load_bitmap("itensd.png");
-    if (!im_item)
+    bau[0]= al_load_bitmap("itemvazio.png");
+    if (!bau[0])
     {
-        fprintf(stderr, "Falha ao carregar imagem de L.\n");
+        fprintf(stderr, "Falha ao carregar itens do bau.\n");
         al_destroy_display(janela);
         al_destroy_event_queue(fila_eventos);
         al_destroy_bitmap(fundo);
@@ -726,6 +736,131 @@ bool iniciar()
         return false;
     }
 
+    bau[1]= al_load_bitmap("item1.png");
+    if (!bau[1])
+    {
+        fprintf(stderr, "Falha ao carregar itens do bau.\n");
+        al_destroy_display(janela);
+        al_destroy_event_queue(fila_eventos);
+        al_destroy_bitmap(fundo);
+        al_destroy_bitmap(esquerda[0]);
+        al_destroy_bitmap(direita[0]);
+        al_destroy_bitmap(esquerda[1]);   
+        al_destroy_bitmap(direita[1]);
+        al_destroy_bitmap(cima[0]);
+        al_destroy_bitmap(cima[1]);
+        al_destroy_bitmap(baixo[0]);
+        al_destroy_bitmap(baixo[1]);
+        al_destroy_sample(trilha);
+        al_destroy_sample_instance(inst_trilha);
+        al_destroy_bitmap(parado[0]);
+        al_destroy_bitmap(item[0]);
+        al_destroy_bitmap(item[1]);
+        al_destroy_bitmap(bau[0]);
+        return false;
+    }
+    bau[2]= al_load_bitmap("item2.png");
+    if (!bau[2])
+    {
+        fprintf(stderr, "Falha ao carregar itens do bau.\n");
+        al_destroy_display(janela);
+        al_destroy_event_queue(fila_eventos);
+        al_destroy_bitmap(fundo);
+        al_destroy_bitmap(esquerda[0]);
+        al_destroy_bitmap(direita[0]);
+        al_destroy_bitmap(esquerda[1]);   
+        al_destroy_bitmap(direita[1]);
+        al_destroy_bitmap(cima[0]);
+        al_destroy_bitmap(cima[1]);
+        al_destroy_bitmap(baixo[0]);
+        al_destroy_bitmap(baixo[1]);
+        al_destroy_sample(trilha);
+        al_destroy_sample_instance(inst_trilha);
+        al_destroy_bitmap(parado[0]);
+        al_destroy_bitmap(item[0]);
+        al_destroy_bitmap(item[1]);
+        al_destroy_bitmap(bau[0]);
+        al_destroy_bitmap(bau[1]);
+        return false;
+    }
+    bau[3]= al_load_bitmap("item3.png");
+    if (!bau[3])
+    {
+        fprintf(stderr, "Falha ao carregar itens do bau.\n");
+        al_destroy_display(janela);
+        al_destroy_event_queue(fila_eventos);
+        al_destroy_bitmap(fundo);
+        al_destroy_bitmap(esquerda[0]);
+        al_destroy_bitmap(direita[0]);
+        al_destroy_bitmap(esquerda[1]);   
+        al_destroy_bitmap(direita[1]);
+        al_destroy_bitmap(cima[0]);
+        al_destroy_bitmap(cima[1]);
+        al_destroy_bitmap(baixo[0]);
+        al_destroy_bitmap(baixo[1]);
+        al_destroy_sample(trilha);
+        al_destroy_sample_instance(inst_trilha);
+        al_destroy_bitmap(parado[0]);
+        al_destroy_bitmap(item[0]);
+        al_destroy_bitmap(item[1]);
+        al_destroy_bitmap(bau[0]);
+        al_destroy_bitmap(bau[1]);
+        al_destroy_bitmap(bau[2]);
+        return false;
+    }
+    bau[4]= al_load_bitmap("item4.png");
+    if (!bau[4])
+    {
+        fprintf(stderr, "Falha ao carregar itens do bau.\n");
+        al_destroy_display(janela);
+        al_destroy_event_queue(fila_eventos);
+        al_destroy_bitmap(fundo);
+        al_destroy_bitmap(esquerda[0]);
+        al_destroy_bitmap(direita[0]);
+        al_destroy_bitmap(esquerda[1]);   
+        al_destroy_bitmap(direita[1]);
+        al_destroy_bitmap(cima[0]);
+        al_destroy_bitmap(cima[1]);
+        al_destroy_bitmap(baixo[0]);
+        al_destroy_bitmap(baixo[1]);
+        al_destroy_sample(trilha);
+        al_destroy_sample_instance(inst_trilha);
+        al_destroy_bitmap(parado[0]);
+        al_destroy_bitmap(item[0]);
+        al_destroy_bitmap(item[1]);
+        al_destroy_bitmap(bau[0]);
+        al_destroy_bitmap(bau[1]);
+        al_destroy_bitmap(bau[2]);
+        al_destroy_bitmap(bau[3]);
+        return false;
+    }
+    bau[5]= al_load_bitmap("item5.png");
+    if (!bau[5])
+    {
+        fprintf(stderr, "Falha ao carregar itens do bau.\n");
+        al_destroy_display(janela);
+        al_destroy_event_queue(fila_eventos);
+        al_destroy_bitmap(fundo);
+        al_destroy_bitmap(esquerda[0]);
+        al_destroy_bitmap(direita[0]);
+        al_destroy_bitmap(esquerda[1]);   
+        al_destroy_bitmap(direita[1]);
+        al_destroy_bitmap(cima[0]);
+        al_destroy_bitmap(cima[1]);
+        al_destroy_bitmap(baixo[0]);
+        al_destroy_bitmap(baixo[1]);
+        al_destroy_sample(trilha);
+        al_destroy_sample_instance(inst_trilha);
+        al_destroy_bitmap(parado[0]);
+        al_destroy_bitmap(item[0]);
+        al_destroy_bitmap(item[1]);
+        al_destroy_bitmap(bau[0]);
+        al_destroy_bitmap(bau[1]);
+        al_destroy_bitmap(bau[2]);
+        al_destroy_bitmap(bau[3]);
+        al_destroy_bitmap(bau[4]);
+        return false;
+    }
 
     //-----funções para o inicio do jogo------
 
