@@ -362,25 +362,25 @@ int abrirbau(int x, int y)
         al_draw_bitmap(bau[0],300,200,0);
         al_flip_display();
     }
-    else if (itens[0]!=0)
+    else if (itens[0]!=0 && itens[1]==0)
     {
         al_draw_bitmap(parado[0],x,y,0);
         al_draw_bitmap(bau[1],300,200,0);
         al_flip_display();    
     }
-    else if (itens[1]!=0)
+    else if (itens[1]!=0 && itens[2]==0)
     {
         al_draw_bitmap(parado[0],x,y,0);
         al_draw_bitmap(bau[2],300,200,0);
         al_flip_display();
     }
-    else if (itens[2]!=0)
+    else if (itens[2]!=0 && itens[3]==0)
     {
         al_draw_bitmap(parado[0],x,y,0);
         al_draw_bitmap(bau[3],300,200,0);
         al_flip_display();
     }
-    else if (itens[3]!=0)
+    else if (itens[3]!=0 && itens[4]==0)
     {
         al_draw_bitmap(parado[0],x,y,0);
         al_draw_bitmap(bau[4],300,200,0);
