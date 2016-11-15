@@ -28,7 +28,7 @@ bool iniciar();
 int acharoseta(int x, int y);
 int achanarmer(int x, int y);
 int abrirbau(int x, int y);
-
+int nivel_grecia();
 
 int jogo()
 {
@@ -322,6 +322,7 @@ int jogo()
             }
             
             tecla = 0;
+            nivel_grecia();
         }
     al_flip_display();
 
@@ -416,6 +417,19 @@ int achanarmer(int x, int y)
 
     return 1;
 }
+
+int nivel_grecia()
+{
+    if (itens[1]!= 0)  
+    {
+        al_draw_bitmap(fundo, 0, 0, 0);
+        al_draw_bitmap(esquerda[0], 30, 3, 0);
+        al_draw_bitmap(direita[1], 3, 30, 0);
+        al_flip_display();
+    }
+}
+
+
     
  //metodo para inicializacao
 bool iniciar()
