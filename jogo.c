@@ -23,12 +23,14 @@ ALLEGRO_BITMAP *item[3];
 ALLEGRO_BITMAP *bau[6];
 ALLEGRO_SAMPLE_INSTANCE *inst_trilha = NULL;
 ALLEGRO_BITMAP *im_item = NULL;
+ALLEGRO_BITMAP *livro = NULL;
+
 
 bool iniciar();
 int acharoseta(int x, int y);
 int achanarmer(int x, int y);
 int abrirbau(int x, int y);
-int nivel_grecia();
+//int nivel_grecia();
 
 int jogo()
 {
@@ -300,10 +302,10 @@ int jogo()
                     al_flip_display();
                 }
                 break;
-            case 6:
+            case 6: // abre o bau
                 abrirbau(x,y);
                 break;
-            case 7:
+            case 7: // caixas de dialogo HELP
             
                 al_show_native_message_box(NULL, "Ajuda",
                 "Setas movimentam", "",
@@ -317,12 +319,13 @@ int jogo()
                 al_flip_display();
                 break;
             case 8:
+            	al_draw_bitmap(livro,0,0,0);
                 al_flip_display();             
                 break;
             }
             
             tecla = 0;
-            nivel_grecia();
+            //nivel_grecia();
         }
     al_flip_display();
 
@@ -346,6 +349,12 @@ int jogo()
     al_destroy_bitmap(item[0]);
     al_destroy_bitmap(item[1]);
     al_destroy_bitmap(im_item);
+    al_destroy_bitmap(bau[0]);
+    al_destroy_bitmap(bau[1]);
+    al_destroy_bitmap(bau[2]);
+    al_destroy_bitmap(bau[3]);
+    al_destroy_bitmap(bau[4]);
+    al_destroy_bitmap(bau[5]);
 
     return 0;
 }
@@ -418,7 +427,7 @@ int achanarmer(int x, int y)
     return 1;
 }
 
-int nivel_grecia()
+/*int nivel_grecia()
 {
     if (itens[1]!= 0)  
     {
@@ -427,7 +436,7 @@ int nivel_grecia()
         al_draw_bitmap(direita[1], 3, 30, 0);
         al_flip_display();
     }
-}
+}*/
 
 
     
@@ -874,6 +883,34 @@ bool iniciar()
         al_destroy_bitmap(bau[2]);
         al_destroy_bitmap(bau[3]);
         al_destroy_bitmap(bau[4]);
+        return false;
+    }
+    livro= al_load_bitmap("imgLdesc/tLivro.png");
+    if (!livro)
+    {
+        fprintf(stderr, "Falha ao carregar livro.\n");
+        al_destroy_display(janela);
+        al_destroy_event_queue(fila_eventos);
+        al_destroy_bitmap(fundo);
+        al_destroy_bitmap(esquerda[0]);
+        al_destroy_bitmap(direita[0]);
+        al_destroy_bitmap(esquerda[1]);   
+        al_destroy_bitmap(direita[1]);
+        al_destroy_bitmap(cima[0]);
+        al_destroy_bitmap(cima[1]);
+        al_destroy_bitmap(baixo[0]);
+        al_destroy_bitmap(baixo[1]);
+        al_destroy_sample(trilha);
+        al_destroy_sample_instance(inst_trilha);
+        al_destroy_bitmap(parado[0]);
+        al_destroy_bitmap(item[0]);
+        al_destroy_bitmap(item[1]);
+        al_destroy_bitmap(bau[0]);
+        al_destroy_bitmap(bau[1]);
+        al_destroy_bitmap(bau[2]);
+        al_destroy_bitmap(bau[3]);
+        al_destroy_bitmap(bau[4]);
+        al_destroy_bitmap(bau[5]);
         return false;
     }
 
