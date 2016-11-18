@@ -10,6 +10,17 @@ int achanarmer(int x, int y);
 int abrirbau(int x, int y);
 //int nivel_grecia();
 
+int historia()
+{
+	for (int j = 0; j < 3; j++)
+	{
+		al_draw_bitmap(hist[j],0,0,0);
+		al_flip_display();
+		sleep(15);
+	}
+	return 0;
+}
+
 int jogo(int x, int y)
 {
 
@@ -346,6 +357,8 @@ int main(void)
     al_draw_bitmap(fundo, 0, 0, 0);
     int x=450,y=350;
     
+    historia();
+
     jogo(x, y);
 
 
@@ -377,6 +390,9 @@ int main(void)
     al_destroy_bitmap(bau[5]);
     al_destroy_bitmap(livro);
     al_destroy_bitmap(desc[0]);
+    al_destroy_bitmap(hist[0]);
+    al_destroy_bitmap(hist[1]);
+    al_destroy_bitmap(hist[2]);
 
 }
 
