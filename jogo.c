@@ -10,19 +10,13 @@ int achanarmer(int x, int y);
 int abrirbau(int x, int y);
 //int nivel_grecia();
 
-int jogo()
+int jogo(int x, int y)
 {
-    bool sair = false;
-    int tecla = 0;
+
+	bool sair = false;
+	int tecla = 0;
     int i=0;
- 
-    if (!iniciar())
-    {
-        return -1;
-    }
- 
-    al_draw_bitmap(fundo, 0, 0, 0);
-    int x=450,y=350;
+
     while (!sair)
     {
     	
@@ -60,19 +54,35 @@ int jogo()
                 case ALLEGRO_KEY_L:
                     tecla = 8;
                     break;
+                case ALLEGRO_KEY_1:
+                	tecla = 9;
+                	break;
+               	case ALLEGRO_KEY_2:
+               		tecla = 10;
+               		break;
+               	case ALLEGRO_KEY_3:
+                	tecla = 11;
+                	break;
+               	case ALLEGRO_KEY_4:
+               		tecla = 12;
+               		break;
+               	case ALLEGRO_KEY_5:
+               		tecla = 13;
+               		break;  
                 }
             }
+
             else if (evento.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
             {
                 sair = true;
             }
         }
- 
+
         if (tecla)
         {
-            al_draw_bitmap(fundo, 0, 0, 0);
- 
-            switch (tecla)
+        	al_draw_bitmap(fundo, 0, 0, 0);
+
+        	switch (tecla)
             {
             /*case 0:
                 al_draw_bitmap(parado[0], x, y, 0);*/ //ainda nao fica parado
@@ -300,16 +310,48 @@ int jogo()
             	al_draw_bitmap(livro,0,0,0);
                 al_flip_display();             
                 break;
+            case 9:
+            	al_draw_bitmap(parado[0],x,y,0);
+            	if(itens[0]!=0)
+            	{
+            		al_draw_bitmap(desc[0],0,0,0);
+            	}
+            	al_flip_display();
+            	break;
             }
-            
-            tecla = 0;
+
+
+         	tecla = 0;
             //nivel_grecia();
+
         }
+
     al_flip_display();
+    	
 
     }
+    return 0;
+}
+ 
+int main(void)
+{
+	
+    
+ 
+    if (!iniciar())
+    {
+        return -1;
+    }
+ 
+    al_draw_bitmap(fundo, 0, 0, 0);
+    int x=450,y=350;
+    
+    jogo(x, y);
 
-    //-----destruindo ponteiros para as variaveis--------
+
+
+
+//-----destruindo ponteiros para as variaveis--------
     al_destroy_bitmap(fundo);
     al_destroy_bitmap(cima[0]);
     al_destroy_bitmap(esquerda[0]);
@@ -333,14 +375,9 @@ int jogo()
     al_destroy_bitmap(bau[3]);
     al_destroy_bitmap(bau[4]);
     al_destroy_bitmap(bau[5]);
+    al_destroy_bitmap(livro);
+    al_destroy_bitmap(desc[0]);
 
-    return 0;
-}
-
- 
-int main(void)
-{
-    jogo();
 }
 
 int abrirbau(int x, int y)
