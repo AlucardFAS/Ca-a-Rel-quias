@@ -5,10 +5,9 @@
 int itens[5] = {0,0,0,0,0};
  
 bool iniciar();
-int acharoseta(int x, int y);
-int achanarmer(int x, int y);
 int abrirbau(int x, int y);
 //int nivel_grecia();
+int acharitem(int x, int y);
 
 int historia()
 {
@@ -314,13 +313,38 @@ int jogo(int x, int y)
 
                 if(x>=310 && y>=200 && x<=560 && y<=245)// acha o item 1
                 {
-                    acharoseta(x,y);
-                    sleep(1);
+                    acharitem(x,y);
+                    al_draw_bitmap(parado[0],x,y,0);
+                    itens[0] = 1;
+                    al_flip_display();
                 }
                 else if(x>=280 && y>=420 && x<=380 && y<=520 && itens[0]!=0)
                 {
-                    achanarmer(x,y);
-                    sleep(1);
+                    acharitem(x,y);
+                    al_draw_bitmap(parado[0],x,y,0);
+                    itens[1] = 1;
+                    al_flip_display();
+                }
+                else if (x>=350 && y<=180 && itens[0]!=0 && itens[1]!=0)
+                {
+                    acharitem(x,y);
+                    al_draw_bitmap(parado[0],x,y,0);
+                    itens[2] = 1;
+                    al_flip_display();
+                }
+                else if (x>=620 && y>=420 && y<=510 && x<=670 && itens[0]!=0 && itens[1]!=0 && itens[2]!=0)
+                {
+                    acharitem(x,y);
+                    al_draw_bitmap(parado[0],x,y,0);
+                    itens[3] = 1;
+                    al_flip_display();
+                }
+                else if (x>=350 && x<=400 && y>=550 && itens[0]!=0 && itens[1]!=0 && itens[2]!=0 && itens[3]!=0)
+                {
+                    acharitem(x,y);
+                    al_draw_bitmap(parado[0],x,y,0);
+                    itens[4] = 1;
+                    al_flip_display();
                 }
                 else
                 {
@@ -407,9 +431,6 @@ int main(void)
     al_destroy_display(janela);
     al_destroy_event_queue(fila_eventos);
     al_destroy_sample(trilha);
-    al_destroy_bitmap(item[0]);
-    al_destroy_bitmap(item[1]);
-    al_destroy_bitmap(im_item);
     al_destroy_bitmap(bau[0]);
     al_destroy_bitmap(bau[1]);
     al_destroy_bitmap(bau[2]);
@@ -464,35 +485,22 @@ int abrirbau(int x, int y)
     }
 }
 
-
-
-int acharoseta(int x,int y)
+int acharitem(int x, int y)
 {
-    al_draw_bitmap(parado[0],x,y,0);
-    al_draw_bitmap(item[0],450,350,0);
-    itens[0] = 1;
-    al_flip_display();
-
-    return 1;
-}
-
-int achanarmer(int x, int y)
-{
-    al_draw_bitmap(parado[0],x,y,0);
-    al_draw_bitmap(item[1],450,350,0);
-    itens[1] = 1;
-    al_flip_display();
-
-    return 1;
+    al_show_native_message_box(NULL, "",
+    "Você achou um item!", "",
+    NULL, ALLEGRO_MESSAGEBOX_QUESTION);
 }
 
 /*int nivel_grecia()
 {
-    if (itens[1]!= 0)  
+    if (itens[4]!= 0)  
     {
+        al_show_native_message_box(NULL, "",
+        "Parabéns, você concluiu esse fase!", "",
+        NULL, ALLEGRO_MESSAGEBOX_QUESTION);
+
         al_draw_bitmap(fundo, 0, 0, 0);
-        al_draw_bitmap(esquerda[0], 30, 3, 0);
-        al_draw_bitmap(direita[1], 3, 30, 0);
         al_flip_display();
     }
 }*/
