@@ -6,7 +6,7 @@ int itens[5] = {0,0,0,0,0};
  
 bool iniciar();
 int abrirbau(int x, int y);
-//int nivel_grecia();
+int nivel_teste();
 int acharitem(int x, int y);
 
 int historia()
@@ -22,14 +22,13 @@ int historia()
 
 int jogo(int x, int y)
 {
-
-	bool sair = false;
+    bool sair = false;
 	int tecla = 0;
     int i=0;
 
     while (!sair)
     {
-    	
+    	nivel_teste();
         al_play_sample_instance(inst_trilha);//toca musica até o jogo ser fechado
         while(!al_is_event_queue_empty(fila_eventos))
         {
@@ -82,7 +81,7 @@ int jogo(int x, int y)
                 }
             }
 
-            else if (evento.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
+            else if (itens[4]!= 0 || evento.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
             {
                 sair = true;
             }
@@ -385,7 +384,7 @@ int jogo(int x, int y)
 
 
          	tecla = 0;
-            //nivel_grecia();
+            
 
         }
 
@@ -417,6 +416,7 @@ int main(void)
 
 
 //-----destruindo ponteiros para as variaveis--------
+
     al_destroy_bitmap(fundo);
     al_destroy_bitmap(cima[0]);
     al_destroy_bitmap(esquerda[0]);
@@ -492,16 +492,15 @@ int acharitem(int x, int y)
     NULL, ALLEGRO_MESSAGEBOX_QUESTION);
 }
 
-/*int nivel_grecia()
+int nivel_teste()
 {
+
     if (itens[4]!= 0)  
     {
         al_show_native_message_box(NULL, "",
         "Parabéns, você concluiu esse fase!", "",
         NULL, ALLEGRO_MESSAGEBOX_QUESTION);
-
-        al_draw_bitmap(fundo, 0, 0, 0);
-        al_flip_display();
     }
-}*/
+    return 0;
+}
 
