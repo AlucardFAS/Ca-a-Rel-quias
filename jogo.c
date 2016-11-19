@@ -16,7 +16,7 @@ int historia()
 	{
 		al_draw_bitmap(hist[j],0,0,0);
 		al_flip_display();
-		sleep(15);
+		sleep(0.1);
 	}
 	return 0;
 }
@@ -126,7 +126,7 @@ int jogo(int x, int y)
                     }
                     al_flip_display();
                 }
-                else if(y<=200)
+                else if(y<=150)
                 {
                     if(i==0)
                     {
@@ -159,9 +159,23 @@ int jogo(int x, int y)
                 sleep(0.1);//funciona
                 break;
             case 2: // movimenta pra baixo
-                if(y>=520)
+                if(y>=540 && x<=320)
                 {
                     if(i==0)
+                    {
+                        al_draw_bitmap(baixo[i], x, y,0);
+                        i++;
+                    }
+                    else if(i==1)
+                    {
+                        al_draw_bitmap(baixo[i], x, y,0);
+                        i--;
+                    }
+                    al_flip_display();
+                }
+                else if (y>=630)
+                {
+                	if(i==0)
                     {
                         al_draw_bitmap(baixo[i], x, y,0);
                         i++;
@@ -208,6 +222,20 @@ int jogo(int x, int y)
                 else if(x<=0)
                 {
                     if(i==0)
+                    {
+                        al_draw_bitmap(esquerda[i], x, y,0);
+                        i++;
+                    }
+                    else if(i==1)
+                    {
+                        al_draw_bitmap(esquerda[i], x, y,0);
+                        i--;
+                    }
+                    al_flip_display();
+                }
+                else if (x<=320 && y>=550)
+                {
+                	if(i==0)
                     {
                         al_draw_bitmap(esquerda[i], x, y,0);
                         i++;
