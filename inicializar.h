@@ -18,10 +18,8 @@ ALLEGRO_BITMAP *esquerda[2];
 ALLEGRO_BITMAP *direita[2];
 ALLEGRO_SAMPLE *trilha = NULL;
 ALLEGRO_BITMAP *parado[1];
-ALLEGRO_BITMAP *item[3];
 ALLEGRO_BITMAP *bau[6];
 ALLEGRO_SAMPLE_INSTANCE *inst_trilha = NULL;
-ALLEGRO_BITMAP *im_item = NULL;
 ALLEGRO_BITMAP *livro = NULL;
 ALLEGRO_BITMAP *desc[5];
 ALLEGRO_BITMAP *hist[3];
@@ -280,47 +278,6 @@ bool iniciar()
         al_destroy_sample_instance(inst_trilha);
         return false;
     }
-    item[0]= al_load_bitmap("itensfundos/frag_roseta.png");
-    if (!item[0])
-    {
-        fprintf(stderr, "Falha ao carregar itens de jogo.\n");
-        al_destroy_display(janela);
-        al_destroy_event_queue(fila_eventos);
-        al_destroy_bitmap(fundo);
-        al_destroy_bitmap(esquerda[0]);
-        al_destroy_bitmap(direita[0]);
-        al_destroy_bitmap(esquerda[1]);   
-        al_destroy_bitmap(direita[1]);
-        al_destroy_bitmap(cima[0]);
-        al_destroy_bitmap(cima[1]);
-        al_destroy_bitmap(baixo[0]);
-        al_destroy_bitmap(baixo[1]);
-        al_destroy_sample(trilha);
-        al_destroy_sample_instance(inst_trilha);
-        al_destroy_bitmap(parado[0]);
-        return false;
-    }
-    item[1]= al_load_bitmap("itensfundos/Narmer.png");
-    if (!item[1])
-    {
-        fprintf(stderr, "Falha ao carregar itens de jogo.\n");
-        al_destroy_display(janela);
-        al_destroy_event_queue(fila_eventos);
-        al_destroy_bitmap(fundo);
-        al_destroy_bitmap(esquerda[0]);
-        al_destroy_bitmap(direita[0]);
-        al_destroy_bitmap(esquerda[1]);   
-        al_destroy_bitmap(direita[1]);
-        al_destroy_bitmap(cima[0]);
-        al_destroy_bitmap(cima[1]);
-        al_destroy_bitmap(baixo[0]);
-        al_destroy_bitmap(baixo[1]);
-        al_destroy_sample(trilha);
-        al_destroy_sample_instance(inst_trilha);
-        al_destroy_bitmap(parado[0]);
-        al_destroy_bitmap(item[0]);
-        return false;
-    }
 
     bau[0]= al_load_bitmap("img B itens/itemvazio.png");
     if (!bau[0])
@@ -340,8 +297,6 @@ bool iniciar()
         al_destroy_sample(trilha);
         al_destroy_sample_instance(inst_trilha);
         al_destroy_bitmap(parado[0]);
-        al_destroy_bitmap(item[0]);
-        al_destroy_bitmap(item[1]);
         return false;
     }
 
@@ -363,8 +318,6 @@ bool iniciar()
         al_destroy_sample(trilha);
         al_destroy_sample_instance(inst_trilha);
         al_destroy_bitmap(parado[0]);
-        al_destroy_bitmap(item[0]);
-        al_destroy_bitmap(item[1]);
         al_destroy_bitmap(bau[0]);
         return false;
     }
@@ -386,8 +339,6 @@ bool iniciar()
         al_destroy_sample(trilha);
         al_destroy_sample_instance(inst_trilha);
         al_destroy_bitmap(parado[0]);
-        al_destroy_bitmap(item[0]);
-        al_destroy_bitmap(item[1]);
         al_destroy_bitmap(bau[0]);
         al_destroy_bitmap(bau[1]);
         return false;
@@ -410,8 +361,6 @@ bool iniciar()
         al_destroy_sample(trilha);
         al_destroy_sample_instance(inst_trilha);
         al_destroy_bitmap(parado[0]);
-        al_destroy_bitmap(item[0]);
-        al_destroy_bitmap(item[1]);
         al_destroy_bitmap(bau[0]);
         al_destroy_bitmap(bau[1]);
         al_destroy_bitmap(bau[2]);
@@ -435,8 +384,6 @@ bool iniciar()
         al_destroy_sample(trilha);
         al_destroy_sample_instance(inst_trilha);
         al_destroy_bitmap(parado[0]);
-        al_destroy_bitmap(item[0]);
-        al_destroy_bitmap(item[1]);
         al_destroy_bitmap(bau[0]);
         al_destroy_bitmap(bau[1]);
         al_destroy_bitmap(bau[2]);
@@ -461,8 +408,6 @@ bool iniciar()
         al_destroy_sample(trilha);
         al_destroy_sample_instance(inst_trilha);
         al_destroy_bitmap(parado[0]);
-        al_destroy_bitmap(item[0]);
-        al_destroy_bitmap(item[1]);
         al_destroy_bitmap(bau[0]);
         al_destroy_bitmap(bau[1]);
         al_destroy_bitmap(bau[2]);
@@ -488,8 +433,6 @@ bool iniciar()
         al_destroy_sample(trilha);
         al_destroy_sample_instance(inst_trilha);
         al_destroy_bitmap(parado[0]);
-        al_destroy_bitmap(item[0]);
-        al_destroy_bitmap(item[1]);
         al_destroy_bitmap(bau[0]);
         al_destroy_bitmap(bau[1]);
         al_destroy_bitmap(bau[2]);
@@ -516,8 +459,6 @@ bool iniciar()
         al_destroy_sample(trilha);
         al_destroy_sample_instance(inst_trilha);
         al_destroy_bitmap(parado[0]);
-        al_destroy_bitmap(item[0]);
-        al_destroy_bitmap(item[1]);
         al_destroy_bitmap(bau[0]);
         al_destroy_bitmap(bau[1]);
         al_destroy_bitmap(bau[2]);
@@ -545,8 +486,6 @@ bool iniciar()
         al_destroy_sample(trilha);
         al_destroy_sample_instance(inst_trilha);
         al_destroy_bitmap(parado[0]);
-        al_destroy_bitmap(item[0]);
-        al_destroy_bitmap(item[1]);
         al_destroy_bitmap(bau[0]);
         al_destroy_bitmap(bau[1]);
         al_destroy_bitmap(bau[2]);
@@ -575,8 +514,6 @@ bool iniciar()
         al_destroy_sample(trilha);
         al_destroy_sample_instance(inst_trilha);
         al_destroy_bitmap(parado[0]);
-        al_destroy_bitmap(item[0]);
-        al_destroy_bitmap(item[1]);
         al_destroy_bitmap(bau[0]);
         al_destroy_bitmap(bau[1]);
         al_destroy_bitmap(bau[2]);
@@ -606,8 +543,6 @@ bool iniciar()
         al_destroy_sample(trilha);
         al_destroy_sample_instance(inst_trilha);
         al_destroy_bitmap(parado[0]);
-        al_destroy_bitmap(item[0]);
-        al_destroy_bitmap(item[1]);
         al_destroy_bitmap(bau[0]);
         al_destroy_bitmap(bau[1]);
         al_destroy_bitmap(bau[2]);
