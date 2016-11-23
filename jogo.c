@@ -317,28 +317,28 @@ int jogo(int x, int y)
                     itens[0] = 1;
                     al_flip_display();
                 }
-                else if(x>=280 && y>=420 && x<=380 && y<=520 && itens[0]!=0)
+                else if(x>=280 && y>=420 && x<=380 && y<=520 && itens[0]!=0)// item 2
                 {
                     acharitem(x,y);
                     al_draw_bitmap(parado[0],x,y,0);
                     itens[1] = 1;
                     al_flip_display();
                 }
-                else if (x>=350 && y<=180 && itens[0]!=0 && itens[1]!=0)
+                else if (x>=350 && y<=180 && itens[0]!=0 && itens[1]!=0)// item 3
                 {
                     acharitem(x,y);
                     al_draw_bitmap(parado[0],x,y,0);
                     itens[2] = 1;
                     al_flip_display();
                 }
-                else if (x>=620 && y>=420 && y<=510 && x<=670 && itens[0]!=0 && itens[1]!=0 && itens[2]!=0)
+                else if (x>=540 && y>=500 && y<=550 && x<=600 && itens[0]!=0 && itens[1]!=0 && itens[2]!=0)//item 4
                 {
                     acharitem(x,y);
                     al_draw_bitmap(parado[0],x,y,0);
                     itens[3] = 1;
                     al_flip_display();
                 }
-                else if (x>=350 && x<=400 && y>=550 && itens[0]!=0 && itens[1]!=0 && itens[2]!=0 && itens[3]!=0)
+                else if (x>=50 && x<=100 && y<=420 && y>=380 && itens[0]!=0 && itens[1]!=0 && itens[2]!=0 && itens[3]!=0)// item 5
                 {
                     acharitem(x,y);
                     al_draw_bitmap(parado[0],x,y,0);
@@ -380,6 +380,38 @@ int jogo(int x, int y)
             	}
             	al_flip_display();
             	break;
+            case 10:
+                al_draw_bitmap(parado[0],x,y,0);
+                if(itens[1]!=0)
+                {
+                    al_draw_bitmap(desc[1],0,0,0);
+                }
+                al_flip_display();
+                break;
+            case 11:
+                al_draw_bitmap(parado[0],x,y,0);
+                if(itens[2]!=0)
+                {
+                    al_draw_bitmap(desc[2],0,0,0);
+                }
+                al_flip_display();
+                break;
+            case 12:
+                al_draw_bitmap(parado[0],x,y,0);
+                if(itens[3]!=0)
+                {
+                    al_draw_bitmap(desc[3],0,0,0);
+                }
+                al_flip_display();
+                break;
+            case 13:
+                al_draw_bitmap(parado[0],x,y,0);
+                if(itens[4]!=0)
+                {
+                    al_draw_bitmap(desc[4],0,0,0);
+                }
+                al_flip_display();
+                break;
             }
 
 
@@ -439,6 +471,10 @@ int main(void)
     al_destroy_bitmap(bau[5]);
     al_destroy_bitmap(livro);
     al_destroy_bitmap(desc[0]);
+    al_destroy_bitmap(desc[1]); 
+    al_destroy_bitmap(desc[2]);
+    al_destroy_bitmap(desc[3]);
+    al_destroy_bitmap(desc[4]);
     al_destroy_bitmap(hist[0]);
     al_destroy_bitmap(hist[1]);
     al_destroy_bitmap(hist[2]);
