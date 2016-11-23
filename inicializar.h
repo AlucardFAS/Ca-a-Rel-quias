@@ -468,6 +468,120 @@ bool iniciar()
         al_destroy_bitmap(livro);
         return false;
     }
+    desc[1] = al_load_bitmap("img L desc/tPaleta.png");
+    if (!desc[1])
+    {
+        fprintf(stderr, "Falha ao carregar descrição.\n");
+        al_destroy_display(janela);
+        al_destroy_event_queue(fila_eventos);
+        al_destroy_bitmap(fundo);
+        al_destroy_bitmap(esquerda[0]);
+        al_destroy_bitmap(direita[0]);
+        al_destroy_bitmap(esquerda[1]);   
+        al_destroy_bitmap(direita[1]);
+        al_destroy_bitmap(cima[0]);
+        al_destroy_bitmap(cima[1]);
+        al_destroy_bitmap(baixo[0]);
+        al_destroy_bitmap(baixo[1]);
+        al_destroy_sample(trilha);
+        al_destroy_sample_instance(inst_trilha);
+        al_destroy_bitmap(parado[0]);
+        al_destroy_bitmap(bau[0]);
+        al_destroy_bitmap(bau[1]);
+        al_destroy_bitmap(bau[2]);
+        al_destroy_bitmap(bau[3]);
+        al_destroy_bitmap(bau[4]);
+        al_destroy_bitmap(bau[5]);
+        al_destroy_bitmap(livro);
+        al_destroy_bitmap(desc[0]);   
+    }
+    desc[2] = al_load_bitmap("img L desc/tFarao.png");
+    if (!desc[2])
+    {
+        fprintf(stderr, "Falha ao carregar descrição.\n");
+        al_destroy_display(janela);
+        al_destroy_event_queue(fila_eventos);
+        al_destroy_bitmap(fundo);
+        al_destroy_bitmap(esquerda[0]);
+        al_destroy_bitmap(direita[0]);
+        al_destroy_bitmap(esquerda[1]);   
+        al_destroy_bitmap(direita[1]);
+        al_destroy_bitmap(cima[0]);
+        al_destroy_bitmap(cima[1]);
+        al_destroy_bitmap(baixo[0]);
+        al_destroy_bitmap(baixo[1]);
+        al_destroy_sample(trilha);
+        al_destroy_sample_instance(inst_trilha);
+        al_destroy_bitmap(parado[0]);
+        al_destroy_bitmap(bau[0]);
+        al_destroy_bitmap(bau[1]);
+        al_destroy_bitmap(bau[2]);
+        al_destroy_bitmap(bau[3]);
+        al_destroy_bitmap(bau[4]);
+        al_destroy_bitmap(bau[5]);
+        al_destroy_bitmap(livro);
+        al_destroy_bitmap(desc[0]);
+        al_destroy_bitmap(desc[1]);  
+    }
+    desc[3] = al_load_bitmap("img L desc/tHorus.png");
+    if (!desc[3])
+    {
+        fprintf(stderr, "Falha ao carregar descrição.\n");
+        al_destroy_display(janela);
+        al_destroy_event_queue(fila_eventos);
+        al_destroy_bitmap(fundo);
+        al_destroy_bitmap(esquerda[0]);
+        al_destroy_bitmap(direita[0]);
+        al_destroy_bitmap(esquerda[1]);   
+        al_destroy_bitmap(direita[1]);
+        al_destroy_bitmap(cima[0]);
+        al_destroy_bitmap(cima[1]);
+        al_destroy_bitmap(baixo[0]);
+        al_destroy_bitmap(baixo[1]);
+        al_destroy_sample(trilha);
+        al_destroy_sample_instance(inst_trilha);
+        al_destroy_bitmap(parado[0]);
+        al_destroy_bitmap(bau[0]);
+        al_destroy_bitmap(bau[1]);
+        al_destroy_bitmap(bau[2]);
+        al_destroy_bitmap(bau[3]);
+        al_destroy_bitmap(bau[4]);
+        al_destroy_bitmap(bau[5]);
+        al_destroy_bitmap(livro);
+        al_destroy_bitmap(desc[0]);
+        al_destroy_bitmap(desc[1]); 
+        al_destroy_bitmap(desc[2]); 
+    }
+    desc[4] = al_load_bitmap("img L desc/tTyet.png");
+    if (!desc[4])
+    {
+        fprintf(stderr, "Falha ao carregar descrição.\n");
+        al_destroy_display(janela);
+        al_destroy_event_queue(fila_eventos);
+        al_destroy_bitmap(fundo);
+        al_destroy_bitmap(esquerda[0]);
+        al_destroy_bitmap(direita[0]);
+        al_destroy_bitmap(esquerda[1]);   
+        al_destroy_bitmap(direita[1]);
+        al_destroy_bitmap(cima[0]);
+        al_destroy_bitmap(cima[1]);
+        al_destroy_bitmap(baixo[0]);
+        al_destroy_bitmap(baixo[1]);
+        al_destroy_sample(trilha);
+        al_destroy_sample_instance(inst_trilha);
+        al_destroy_bitmap(parado[0]);
+        al_destroy_bitmap(bau[0]);
+        al_destroy_bitmap(bau[1]);
+        al_destroy_bitmap(bau[2]);
+        al_destroy_bitmap(bau[3]);
+        al_destroy_bitmap(bau[4]);
+        al_destroy_bitmap(bau[5]);
+        al_destroy_bitmap(livro);
+        al_destroy_bitmap(desc[0]);
+        al_destroy_bitmap(desc[1]); 
+        al_destroy_bitmap(desc[2]);
+        al_destroy_bitmap(desc[3]); 
+    }
     hist[0]= al_load_bitmap("img L desc/tHistoria.png");
     if (!hist[0])
     {
@@ -494,6 +608,10 @@ bool iniciar()
         al_destroy_bitmap(bau[5]);
         al_destroy_bitmap(livro);
         al_destroy_bitmap(desc[0]);
+        al_destroy_bitmap(desc[1]); 
+        al_destroy_bitmap(desc[2]);
+        al_destroy_bitmap(desc[3]);
+        al_destroy_bitmap(desc[4]);
         return false;
     }
     hist[1]= al_load_bitmap("img L desc/tTela1.png");
@@ -522,6 +640,10 @@ bool iniciar()
         al_destroy_bitmap(bau[5]);
         al_destroy_bitmap(livro);
         al_destroy_bitmap(desc[0]);
+        al_destroy_bitmap(desc[1]); 
+        al_destroy_bitmap(desc[2]);
+        al_destroy_bitmap(desc[3]);
+        al_destroy_bitmap(desc[4]);
         al_destroy_bitmap(hist[0]);
         return false;
     }
@@ -551,6 +673,10 @@ bool iniciar()
         al_destroy_bitmap(bau[5]);
         al_destroy_bitmap(livro);
         al_destroy_bitmap(desc[0]);
+        al_destroy_bitmap(desc[1]); 
+        al_destroy_bitmap(desc[2]);
+        al_destroy_bitmap(desc[3]);
+        al_destroy_bitmap(desc[4]);
         al_destroy_bitmap(hist[0]);
         al_destroy_bitmap(hist[1]);
         return false;
