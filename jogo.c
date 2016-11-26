@@ -3,6 +3,8 @@
  
 
 int itens[5] = {0,0,0,0,0};
+int controle_fecha_jogo = 0;
+int controle_mantem_aberto = 1;
  
 bool iniciar();
 int abrirbau(int x, int y);
@@ -89,7 +91,7 @@ int jogo(int x, int y)
                 }
             }
 
-            else if (itens[4]!= 0 || evento.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
+            else if (itens[4]!=0 && controle_fecha_jogo == 1 || evento.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
             {
                 sair = true;
             }
@@ -99,6 +101,12 @@ int jogo(int x, int y)
         if (tecla)
         {
             al_draw_bitmap(fundo, 0, 0, 0);
+            if (controle_mantem_aberto == 0)
+            {
+                al_draw_bitmap(fundo,0,0,0);
+                al_draw_bitmap(porta_final,0,0,0);
+                al_flip_display();
+            }
 
             switch (tecla)
             {
@@ -317,7 +325,7 @@ int jogo(int x, int y)
                 break;
             case 5: // interage com o item
 
-                if(x>=310 && y>=200 && x<=560 && y<=245)// acha o item 1
+                if(x>=310 && y>=160 && x<=560 && y<=245)// acha o item 1
                 {
                     if (itens[0]==0)
                     {
@@ -337,7 +345,7 @@ int jogo(int x, int y)
                     itens[1] = 1;
                     al_flip_display();
                 }
-                else if (x>=350 && y<=180 && itens[0]!=0 && itens[1]!=0)// item 3
+                else if (x>=350 && y<=155 && itens[0]!=0 && itens[1]!=0)// item 3
                 {
                     if (itens[2]==0)
                     {
@@ -366,6 +374,17 @@ int jogo(int x, int y)
                     al_draw_bitmap(parado[0],x,y,0);
                     itens[4] = 1;
                     al_flip_display();
+                }
+                else if (x>=400 && x<=500 && y>=500 && y<=600 && itens[0]!=0 && itens[1]!=0 && itens[2]!=0 && itens[3]!=0 && itens[4]!=0)//saida do jogo
+                {
+                    controle_mantem_aberto = 0;
+                    al_draw_bitmap(porta_final,0,0,0);
+                    al_draw_bitmap(parado[0],x,y,0);
+                    al_flip_display();
+                }
+                else if (x>=420 && y>=350 && x<=480 && itens[0]!=0 && itens[1]!=0 && itens[2]!=0 && itens[3]!=0 && itens[4]!=0 && controle_mantem_aberto!=1)
+                {
+                    controle_fecha_jogo = 1;
                 }
                 else
                 {
@@ -451,7 +470,6 @@ int jogo(int x, int y)
                 itens[5]= (0,0,0,0,0);
                 break;*/
             }
-
 
             tecla = 0;
             
@@ -574,7 +592,7 @@ int acharitem(int x, int y)
 int nivel_teste()
 {
 
-    if (itens[4]!= 0)  
+    if (itens[4]!= 0 && controle_fecha_jogo ==1)  
     {
         al_show_native_message_box(NULL, "",
         "Parabéns, você concluiu o jogo!", "",
