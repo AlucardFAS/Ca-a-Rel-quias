@@ -11,25 +11,30 @@ int acharitem(int x, int y);
 
 int historia()
 {
-	for (int j = 0; j < 3; j++)
-	{
-		al_draw_bitmap(hist[j],0,0,0);
-		al_flip_display();
-		sleep(0.1);
-	}
-	return 0;
+    for (int j = 0; j < 3; j++)
+    {
+        al_draw_bitmap(hist[j],0,0,0);
+        al_flip_display();
+        sleep(0.1);
+    }
+        al_draw_bitmap(tela_inicio, 0,0,0);
+        sleep(0.1);
+    return 0;
 }
 
 int jogo(int x, int y)
 {
     bool sair = false;
-	int tecla = 0;
+    int tecla = 0;
     int i=0;
+    int condicao = 0;
 
     while (!sair)
     {
-    	nivel_teste();
+        nivel_teste();
         al_play_sample_instance(inst_trilha);//toca musica até o jogo ser fechado
+
+
         while(!al_is_event_queue_empty(fila_eventos))
         {
             ALLEGRO_EVENT evento;
@@ -64,20 +69,23 @@ int jogo(int x, int y)
                     tecla = 8;
                     break;
                 case ALLEGRO_KEY_1:
-                	tecla = 9;
-                	break;
-               	case ALLEGRO_KEY_2:
-               		tecla = 10;
-               		break;
-               	case ALLEGRO_KEY_3:
-                	tecla = 11;
-                	break;
-               	case ALLEGRO_KEY_4:
-               		tecla = 12;
-               		break;
-               	case ALLEGRO_KEY_5:
-               		tecla = 13;
-               		break;  
+                    tecla = 9;
+                    break;
+                case ALLEGRO_KEY_2:
+                    tecla = 10;
+                    break;
+                case ALLEGRO_KEY_3:
+                    tecla = 11;
+                    break;
+                case ALLEGRO_KEY_4:
+                    tecla = 12;
+                    break;
+                case ALLEGRO_KEY_5:
+                    tecla = 13;
+                    break; 
+                /*case ALLEGRO_KEY_R:
+                    tecla = 14;
+                    break;*/
                 }
             }
 
@@ -87,14 +95,13 @@ int jogo(int x, int y)
             }
         }
 
+
         if (tecla)
         {
-        	al_draw_bitmap(fundo, 0, 0, 0);
+            al_draw_bitmap(fundo, 0, 0, 0);
 
-        	switch (tecla)
+            switch (tecla)
             {
-            /*case 0:
-                al_draw_bitmap(parado[0], x, y, 0);*/ //ainda nao fica parado
             case 1: // movimenta pra cima
                 if(y<=245 && x<=300)
                 {
@@ -173,7 +180,7 @@ int jogo(int x, int y)
                 }
                 else if (y>=630)
                 {
-                	if(i==0)
+                    if(i==0)
                     {
                         al_draw_bitmap(baixo[i], x, y,0);
                         i++;
@@ -233,7 +240,7 @@ int jogo(int x, int y)
                 }
                 else if (x<=320 && y>=550)
                 {
-                	if(i==0)
+                    if(i==0)
                     {
                         al_draw_bitmap(esquerda[i], x, y,0);
                         i++;
@@ -312,35 +319,50 @@ int jogo(int x, int y)
 
                 if(x>=310 && y>=200 && x<=560 && y<=245)// acha o item 1
                 {
-                    acharitem(x,y);
+                    if (itens[0]==0)
+                    {
+                        acharitem(x,y);
+                    }
                     al_draw_bitmap(parado[0],x,y,0);
                     itens[0] = 1;
                     al_flip_display();
                 }
-                else if(x>=280 && y>=420 && x<=380 && y<=520 && itens[0]!=0)// item 2
+                else if(x>=200 && y>=420 && x<=380 && y<=520 && itens[0]!=0)// item 2
                 {
-                    acharitem(x,y);
+                    if (itens[1]==0)
+                    {
+                        acharitem(x,y);
+                    }
                     al_draw_bitmap(parado[0],x,y,0);
                     itens[1] = 1;
                     al_flip_display();
                 }
                 else if (x>=350 && y<=180 && itens[0]!=0 && itens[1]!=0)// item 3
                 {
-                    acharitem(x,y);
+                    if (itens[2]==0)
+                    {
+                        acharitem(x,y);
+                    }
                     al_draw_bitmap(parado[0],x,y,0);
                     itens[2] = 1;
                     al_flip_display();
                 }
-                else if (x>=540 && y>=500 && y<=550 && x<=600 && itens[0]!=0 && itens[1]!=0 && itens[2]!=0)//item 4
+                else if (x>=530 && y>=500 && y<=550 && x<=600 && itens[0]!=0 && itens[1]!=0 && itens[2]!=0)//item 4
                 {
-                    acharitem(x,y);
+                    if (itens[3]==0)
+                    {
+                        acharitem(x,y);
+                    }
                     al_draw_bitmap(parado[0],x,y,0);
                     itens[3] = 1;
                     al_flip_display();
                 }
                 else if (x>=50 && x<=100 && y<=420 && y>=380 && itens[0]!=0 && itens[1]!=0 && itens[2]!=0 && itens[3]!=0)// item 5
                 {
-                    acharitem(x,y);
+                    if (itens[4]==0)
+                    {
+                        acharitem(x,y);
+                    }
                     al_draw_bitmap(parado[0],x,y,0);
                     itens[4] = 1;
                     al_flip_display();
@@ -350,6 +372,18 @@ int jogo(int x, int y)
                     al_draw_bitmap(parado[0],x,y,0);
                     sleep(0.1);//mantem 0.1 segundo parado se clicar no local errado
                     al_flip_display();
+                    if (condicao==0)
+                    {
+                        al_show_native_message_box(NULL, "Ajuda",
+                        "Setas movimentam", "",
+                        NULL, ALLEGRO_MESSAGEBOX_QUESTION);
+
+                        al_show_native_message_box(NULL, "Ajuda",
+                        "Enter interage", "",
+                        NULL, ALLEGRO_MESSAGEBOX_QUESTION);
+
+                        condicao =1;
+                    }
                 }
                 break;
             case 6: // abre o bau
@@ -369,17 +403,17 @@ int jogo(int x, int y)
                 al_flip_display();
                 break;
             case 8:
-            	al_draw_bitmap(livro,0,0,0);
+                al_draw_bitmap(livro,0,0,0);
                 al_flip_display();             
                 break;
             case 9:
-            	al_draw_bitmap(parado[0],x,y,0);
-            	if(itens[0]!=0)
-            	{
-            		al_draw_bitmap(desc[0],0,0,0);
-            	}
-            	al_flip_display();
-            	break;
+                al_draw_bitmap(parado[0],x,y,0);
+                if(itens[0]!=0)
+                {
+                    al_draw_bitmap(desc[0],0,0,0);
+                }
+                al_flip_display();
+                break;
             case 10:
                 al_draw_bitmap(parado[0],x,y,0);
                 if(itens[1]!=0)
@@ -412,16 +446,20 @@ int jogo(int x, int y)
                 }
                 al_flip_display();
                 break;
+            /*case 14:
+
+                itens[5]= (0,0,0,0,0);
+                break;*/
             }
 
 
-         	tecla = 0;
+            tecla = 0;
             
 
         }
 
     al_flip_display();
-    	
+        
 
     }
     return 0;
@@ -429,7 +467,7 @@ int jogo(int x, int y)
  
 int main(void)
 {
-	
+    
     
  
     if (!iniciar())
@@ -443,6 +481,7 @@ int main(void)
     historia();
 
     jogo(x, y);
+
 
 
 
@@ -478,6 +517,7 @@ int main(void)
     al_destroy_bitmap(hist[0]);
     al_destroy_bitmap(hist[1]);
     al_destroy_bitmap(hist[2]);
+    al_destroy_bitmap(tela_inicio);
 
 }
 
@@ -526,6 +566,9 @@ int acharitem(int x, int y)
     al_show_native_message_box(NULL, "",
     "Você achou um item!", "",
     NULL, ALLEGRO_MESSAGEBOX_QUESTION);
+    al_show_native_message_box(NULL, "",
+    "Pressione 'B' para informações sobre o item.", "",
+    NULL, ALLEGRO_MESSAGEBOX_QUESTION);
 }
 
 int nivel_teste()
@@ -534,9 +577,12 @@ int nivel_teste()
     if (itens[4]!= 0)  
     {
         al_show_native_message_box(NULL, "",
-        "Parabéns, você concluiu esse fase!", "",
+        "Parabéns, você concluiu o jogo!", "",
         NULL, ALLEGRO_MESSAGEBOX_QUESTION);
+
+        /*al_show_native_message_box(NULL, "",
+        "Para recomeçar o jogo, pressione 'R'!", "",
+        NULL, ALLEGRO_MESSAGEBOX_QUESTION);*/
     }
     return 0;
 }
-
