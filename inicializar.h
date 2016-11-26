@@ -24,6 +24,7 @@ ALLEGRO_BITMAP *livro = NULL;
 ALLEGRO_BITMAP *desc[5];
 ALLEGRO_BITMAP *hist[3];
 ALLEGRO_BITMAP *tela_inicio = NULL;
+ALLEGRO_BITMAP *porta_final = NULL;
 
 bool iniciar()
 {
@@ -714,10 +715,46 @@ bool iniciar()
         al_destroy_bitmap(desc[4]);
         al_destroy_bitmap(hist[0]);
         al_destroy_bitmap(hist[1]);
-        al_destroy_bitmap(tela_inicio);
+        al_destroy_bitmap(hist[2]);
         return false;
     }
+    porta_final= al_load_bitmap("itensfundos/portafinal.png");
+    if (!tela_inicio)
+    {
+        fprintf(stderr, "Falha ao carregar porta final.\n");
+        al_destroy_display(janela);
+        al_destroy_event_queue(fila_eventos);
+        al_destroy_bitmap(fundo);
+        al_destroy_bitmap(esquerda[0]);
+        al_destroy_bitmap(direita[0]);
+        al_destroy_bitmap(esquerda[1]);   
+        al_destroy_bitmap(direita[1]);
+        al_destroy_bitmap(cima[0]);
+        al_destroy_bitmap(cima[1]);
+        al_destroy_bitmap(baixo[0]);
+        al_destroy_bitmap(baixo[1]);
+        al_destroy_sample(trilha);
+        al_destroy_sample_instance(inst_trilha);
+        al_destroy_bitmap(parado[0]);
+        al_destroy_bitmap(bau[0]);
+        al_destroy_bitmap(bau[1]);
+        al_destroy_bitmap(bau[2]);
+        al_destroy_bitmap(bau[3]);
+        al_destroy_bitmap(bau[4]);
+        al_destroy_bitmap(bau[5]);
+        al_destroy_bitmap(livro);
+        al_destroy_bitmap(desc[0]);
+        al_destroy_bitmap(desc[1]); 
+        al_destroy_bitmap(desc[2]);
+        al_destroy_bitmap(desc[3]);
+        al_destroy_bitmap(desc[4]);
+        al_destroy_bitmap(hist[0]);
+        al_destroy_bitmap(hist[1]);
+        al_destroy_bitmap(tela_inicio);
+        al_destroy_bitmap(porta_final);
 
+        return false;
+    }
 
     //-----funções para o inicio do jogo------
 
