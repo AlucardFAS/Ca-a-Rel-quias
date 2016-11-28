@@ -54,7 +54,7 @@ bool iniciar()
         return false;
     }
  
-    al_set_window_title(janela, "Projeto Pyongyang");
+    al_set_window_title(janela, "Caça-Relíquias");
  
  
     fila_eventos = al_create_event_queue();
