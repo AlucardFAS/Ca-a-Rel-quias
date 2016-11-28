@@ -1,17 +1,20 @@
 #include "inicializar.h"
 #include <stdio.h>
  
-
+//-----variaveis globais-------
 int itens[5] = {0,0,0,0,0};
 int controle_fecha_jogo = 0;
 int controle_mantem_aberto = 1;
- 
+
+//----funções usados dentro da função jogo()-------
 bool iniciar();
 int abrirbau(int x, int y);
-int nivel_teste();
+int fecha_teste();
 int acharitem(int x, int y);
 
-int historia()
+//------funções usadas no main-----
+
+int historia()//carrega 4 imagem, 3 sobre a historia do persongem e 1 ẽ a tela de inico
 {
     for (int j = 0; j < 3; j++)
     {
@@ -24,16 +27,16 @@ int historia()
     return 0;
 }
 
-int jogo(int x, int y)
+int jogo(int x, int y)//jogo completo
 {
     bool sair = false;
     int tecla = 0;
     int i=0;
     int condicao = 0;
 
-    while (!sair)
+    while (!sair)//condição para o fechamneto do jogo
     {
-        nivel_teste();
+        fecha_teste();
         al_play_sample_instance(inst_trilha);//toca musica até o jogo ser fechado
 
 
@@ -91,7 +94,8 @@ int jogo(int x, int y)
                 }
             }
 
-            else if (itens[4]!=0 && controle_fecha_jogo == 1 || evento.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
+            else if (itens[4]!=0 && controle_fecha_jogo == 1 || 
+                evento.type == ALLEGRO_EVENT_DISPLAY_CLOSE)
             {
                 sair = true;
             }
@@ -101,7 +105,7 @@ int jogo(int x, int y)
         if (tecla)
         {
             al_draw_bitmap(fundo, 0, 0, 0);
-            if (controle_mantem_aberto == 0)
+            if (controle_mantem_aberto == 0)//if de controle para manter o bitmap que fecha o jogo desenhado.
             {
                 al_draw_bitmap(fundo,0,0,0);
                 al_draw_bitmap(porta_final,0,0,0);
@@ -110,7 +114,7 @@ int jogo(int x, int y)
 
             switch (tecla)
             {
-            case 1: // movimenta pra cima
+            case 1: // movimenta o personagem para cima
                 if(y<=245 && x<=300)
                 {
                     if(i==0)
@@ -171,7 +175,7 @@ int jogo(int x, int y)
                 al_flip_display();
                 sleep(0.1);//funciona
                 break;
-            case 2: // movimenta pra baixo
+            case 2: // movimenta o personagem para baixo
                 if(y>=540 && x<=320)
                 {
                     if(i==0)
@@ -217,7 +221,7 @@ int jogo(int x, int y)
                 al_flip_display();
                 sleep(0.1);
                 break;
-            case 3: // movimenta pra esquerda
+            case 3: // movimenta o personagem para esquerda
                 if(x<=310 && y<=230)
                 {
                     if(i==0)
@@ -277,7 +281,7 @@ int jogo(int x, int y)
                 al_flip_display();
                 sleep(0.1);
                 break;
-            case 4: // movimenta pra direita
+            case 4: // movimenta o personagem para direita
                 if(x>=560 && y<=230)
                 {
                     if(i==0)
@@ -323,9 +327,9 @@ int jogo(int x, int y)
                 al_flip_display();
                 sleep(0.1);
                 break;
-            case 5: // interage com o item
+            case 5: // interação do jogo
 
-                if(x>=310 && y>=160 && x<=560 && y<=245)// acha o item 1
+                if(x>=310 && y>=160 && x<=560 && y<=245)//item 1
                 {
                     if (itens[0]==0)
                     {
@@ -335,7 +339,7 @@ int jogo(int x, int y)
                     itens[0] = 1;
                     al_flip_display();
                 }
-                else if(x>=200 && y>=420 && x<=380 && y<=520 && itens[0]!=0)// item 2
+                else if(x>=200 && y>=420 && x<=380 && y<=520 && itens[0]!=0)//item 2
                 {
                     if (itens[1]==0)
                     {
@@ -345,7 +349,7 @@ int jogo(int x, int y)
                     itens[1] = 1;
                     al_flip_display();
                 }
-                else if (x>=350 && y<=155 && itens[0]!=0 && itens[1]!=0)// item 3
+                else if (x>=350 && y<=155 && itens[0]!=0 && itens[1]!=0)//item 3
                 {
                     if (itens[2]==0)
                     {
@@ -355,7 +359,8 @@ int jogo(int x, int y)
                     itens[2] = 1;
                     al_flip_display();
                 }
-                else if (x>=530 && y>=500 && y<=550 && x<=600 && itens[0]!=0 && itens[1]!=0 && itens[2]!=0)//item 4
+                else if (x>=530 && y>=500 && y<=550 
+                && x<=600 && itens[0]!=0 && itens[1]!=0 && itens[2]!=0)//item 4
                 {
                     if (itens[3]==0)
                     {
@@ -365,7 +370,8 @@ int jogo(int x, int y)
                     itens[3] = 1;
                     al_flip_display();
                 }
-                else if (x>=50 && x<=100 && y<=420 && y>=380 && itens[0]!=0 && itens[1]!=0 && itens[2]!=0 && itens[3]!=0)// item 5
+                else if (x>=50 && x<=100 && y<=420 && y>=380 
+                && itens[0]!=0 && itens[1]!=0 && itens[2]!=0 && itens[3]!=0)//item 5
                 {
                     if (itens[4]==0)
                     {
@@ -375,14 +381,18 @@ int jogo(int x, int y)
                     itens[4] = 1;
                     al_flip_display();
                 }
-                else if (x>=400 && x<=500 && y>=500 && y<=600 && itens[0]!=0 && itens[1]!=0 && itens[2]!=0 && itens[3]!=0 && itens[4]!=0)//saida do jogo
+                else if (x>=400 && x<=500 && y>=500 
+                && y<=600 && itens[0]!=0 && itens[1]!=0 
+                && itens[2]!=0 && itens[3]!=0 && itens[4]!=0)//desenha o bitmap que fecha o jogo
                 {
                     controle_mantem_aberto = 0;
                     al_draw_bitmap(porta_final,0,0,0);
                     al_draw_bitmap(parado[0],x,y,0);
                     al_flip_display();
                 }
-                else if (x>=420 && y>=350 && x<=480 && itens[0]!=0 && itens[1]!=0 && itens[2]!=0 && itens[3]!=0 && itens[4]!=0 && controle_mantem_aberto!=1)
+                else if (x>=420 && y>=350 && x<=480 
+                    && itens[0]!=0 && itens[1]!=0 && itens[2]!=0 
+                    && itens[3]!=0 && itens[4]!=0 && controle_mantem_aberto!=1)//fecha o jogo
                 {
                     controle_fecha_jogo = 1;
                 }
@@ -391,16 +401,11 @@ int jogo(int x, int y)
                     al_draw_bitmap(parado[0],x,y,0);
                     sleep(0.1);//mantem 0.1 segundo parado se clicar no local errado
                     al_flip_display();
-                    if (condicao==0)
+                    if (condicao==0)//logica para colocar a ajuda quando iniciar o jogo
                     {
-                        al_show_native_message_box(NULL, "Ajuda",
-                        "Setas movimentam", "",
-                        NULL, ALLEGRO_MESSAGEBOX_QUESTION);
-
-                        al_show_native_message_box(NULL, "Ajuda",
-                        "Enter interage", "",
-                        NULL, ALLEGRO_MESSAGEBOX_QUESTION);
-
+                        al_draw_bitmap(parado[0],x,y,0);
+                        al_draw_bitmap(help,0,0,0);
+                        al_flip_display();
                         condicao =1;
                     }
                 }
@@ -408,24 +413,17 @@ int jogo(int x, int y)
             case 6: // abre o bau
                 abrirbau(x,y);
                 break;
-            case 7: // caixas de dialogo HELP
-            
-                al_show_native_message_box(NULL, "Ajuda",
-                "Setas movimentam", "",
-                NULL, ALLEGRO_MESSAGEBOX_QUESTION);
-
-                al_show_native_message_box(NULL, "Ajuda",
-                "Enter interage", "",
-                NULL, ALLEGRO_MESSAGEBOX_QUESTION);
-
+            case 7: // HELP
+                
                 al_draw_bitmap(parado[0],x,y,0);
+                al_draw_bitmap(help,0,0,0);
                 al_flip_display();
                 break;
-            case 8:
+            case 8: // Descrição do jogo e dica do 1 item
                 al_draw_bitmap(livro,0,0,0);
                 al_flip_display();             
                 break;
-            case 9:
+            case 9: // Descrição dos itens 
                 al_draw_bitmap(parado[0],x,y,0);
                 if(itens[0]!=0)
                 {
@@ -433,7 +431,7 @@ int jogo(int x, int y)
                 }
                 al_flip_display();
                 break;
-            case 10:
+            case 10:// Descrição dos itens
                 al_draw_bitmap(parado[0],x,y,0);
                 if(itens[1]!=0)
                 {
@@ -441,7 +439,7 @@ int jogo(int x, int y)
                 }
                 al_flip_display();
                 break;
-            case 11:
+            case 11:// Descrição dos itens
                 al_draw_bitmap(parado[0],x,y,0);
                 if(itens[2]!=0)
                 {
@@ -449,7 +447,7 @@ int jogo(int x, int y)
                 }
                 al_flip_display();
                 break;
-            case 12:
+            case 12:// Descrição dos itens
                 al_draw_bitmap(parado[0],x,y,0);
                 if(itens[3]!=0)
                 {
@@ -457,7 +455,7 @@ int jogo(int x, int y)
                 }
                 al_flip_display();
                 break;
-            case 13:
+            case 13:// Descrição dos itens
                 al_draw_bitmap(parado[0],x,y,0);
                 if(itens[4]!=0)
                 {
@@ -486,9 +484,7 @@ int jogo(int x, int y)
 int main(void)
 {
     
-    
- 
-    if (!iniciar())
+    if (!iniciar())//inicia o header com imagens, musica, fila de eventos e a janela
     {
         return -1;
     }
@@ -539,47 +535,53 @@ int main(void)
 
 }
 
-int abrirbau(int x, int y)
+int abrirbau(int x, int y)//função da tecla B do jogo
 {
     if (itens[0]==0)
     {
         al_draw_bitmap(parado[0],x,y,0);
         al_draw_bitmap(bau[0],300,200,0);
+        al_draw_bitmap(guia_itens,0,550,0);
         al_flip_display();
     }
     else if (itens[0]!=0 && itens[1]==0)
     {
         al_draw_bitmap(parado[0],x,y,0);
         al_draw_bitmap(bau[1],300,200,0);
+        al_draw_bitmap(guia_itens,0,550,0);
         al_flip_display();    
     }
     else if (itens[1]!=0 && itens[2]==0)
     {
         al_draw_bitmap(parado[0],x,y,0);
         al_draw_bitmap(bau[2],300,200,0);
+        al_draw_bitmap(guia_itens,0,550,0);
         al_flip_display();
     }
     else if (itens[2]!=0 && itens[3]==0)
     {
         al_draw_bitmap(parado[0],x,y,0);
         al_draw_bitmap(bau[3],300,200,0);
+        al_draw_bitmap(guia_itens,0,550,0);
         al_flip_display();
     }
     else if (itens[3]!=0 && itens[4]==0)
     {
         al_draw_bitmap(parado[0],x,y,0);
         al_draw_bitmap(bau[4],300,200,0);
+        al_draw_bitmap(guia_itens,0,550,0);
         al_flip_display();
     }
     else if (itens[4]!=0)
     {
         al_draw_bitmap(parado[0],x,y,0);
         al_draw_bitmap(bau[5],300,200,0);
+        al_draw_bitmap(guia_itens,0,550,0);
         al_flip_display();
     }
 }
 
-int acharitem(int x, int y)
+int acharitem(int x, int y)// caixa de dialogo para quando o item é encontrado
 {
     al_show_native_message_box(NULL, "",
     "Você achou um item!", "",
@@ -589,7 +591,7 @@ int acharitem(int x, int y)
     NULL, ALLEGRO_MESSAGEBOX_QUESTION);
 }
 
-int nivel_teste()
+int fecha_teste()//função para testar se o jogo pode fechar
 {
 
     if (itens[4]!= 0 && controle_fecha_jogo ==1)  
