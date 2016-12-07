@@ -23,7 +23,7 @@ int historia()//carrega 4 imagem, 3 sobre a historia do persongem e 1 ẽ a tela
         sleep(10);
     }
         al_draw_bitmap(tela_inicio, 0,0,0);
-        sleep(0.3);
+        sleep(1);
     return 0;
 }
 
