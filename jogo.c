@@ -20,10 +20,10 @@ int historia()//carrega 4 imagem, 3 sobre a historia do persongem e 1 ẽ a tela
     {
         al_draw_bitmap(hist[j],0,0,0);
         al_flip_display();
-        sleep(0.1);
+        sleep(10);
     }
         al_draw_bitmap(tela_inicio, 0,0,0);
-        sleep(0.1);
+        sleep(0.3);
     return 0;
 }
 
